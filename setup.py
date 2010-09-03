@@ -5,7 +5,7 @@ version = '0.13'
 
 setup(name='zettwerk.ui',
       version=version,
-      description="An installable theme for Plone 3",
+      description="Adding jquery.ui and themeroller to plone 4",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
@@ -14,9 +14,9 @@ setup(name='zettwerk.ui',
         "Framework :: Plone",
         "Programming Language :: Python",
         ],
-      keywords='',
-      author='',
-      author_email='',
+      keywords='plone, theme, themeroller',
+      author='zettwerk GmbH',
+      author_email='jk@zettwerk.com',
       url='http://svn.plone.org/svn/collective/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),

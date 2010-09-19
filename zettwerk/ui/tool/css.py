@@ -47,3 +47,9 @@ FOOTER = """
     text-decoration: underline;
 }
 """
+
+PERSONAL_TOOL = """
+.actionMenu .ui-state-hover {
+    border: 0px;
+}
+"""

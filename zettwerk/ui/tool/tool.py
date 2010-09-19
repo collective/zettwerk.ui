@@ -7,7 +7,7 @@ from zope.interface import implements
 from zope import schema
 
 from zettwerk.ui import messageFactory as _
-from css import FORMS, STATUS_MESSAGE, TABS, FOOTER
+from css import FORMS, STATUS_MESSAGE, TABS, FOOTER, PERSONAL_TOOL
 
 import urllib2
 from urllib import urlencode
@@ -169,7 +169,8 @@ class UITool(UniqueObject, SimpleItem):
             result += TABS
         if self.enableFooter:
             result += FOOTER
-
+        if self.enablePersonalTool:
+            result += PERSONAL_TOOL
         return result
 
     def _redirectToCPView(self, msg=None):

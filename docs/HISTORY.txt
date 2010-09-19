@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.14 (unreleased)
+0.14 (2010-09-19)
 -----------------
 
 - removed annoying flickering of personeal-tools when hovering

@@ -46,6 +46,4 @@ recipe to manage your project, you can do this:
 zettwerk.ui Un-Installation
 ---------------------------
 
-After un-installation via quickinstaller the controlpanel entry for zettwerk.ui
-still exists. To remove it, switch to the ZMI, choose portal_controlpanel and
-remove the action called "Zettwerk UI"
+Use the  quickinstaller to uninstall. 

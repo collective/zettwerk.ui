@@ -64,6 +64,8 @@ class IUIToolTheme(Interface):
 class IUIToolSettings(Interface):
     """ UITool interface for setting fields """
 
+    enableFonts = schema.Bool(title=_(u"Enable fonts styling"),
+                                   description=_(u"Use jquery ui's font class for global font styling"))
     enableGlobalTabs = schema.Bool(title=_(u"Enable global-tabs styling"),
                                    description=_(u"Use jquery ui's tabs classes for global-tab styling (this do not use ui's tabs())"))
     enableDialogs = schema.Bool(title=_(u"Enable dialogs"),
@@ -78,8 +80,6 @@ class IUIToolSettings(Interface):
                              description=_(u"Use jquery ui's tabs classes for tab styling (this do not use ui's tabs())"))
     enableEditBar = schema.Bool(title=_(u"Enable edit bar styling"),
                                    description=_(u"Use jquery ui's classes for edit bar styling"))
-    enableButtons = schema.Bool(title=_(u"Enable buttons"),
-                                description=_(u"This applies button() to input[type=submit] fields"))
     enableForms = schema.Bool(title=_(u"Enable forms"),
                               description=_(u"Use ui css classes for form elements"))
     enableFooter = schema.Bool(title=_(u"Enable footer styling"),
@@ -100,7 +100,6 @@ class UITool(UniqueObject, SimpleItem):
     ## implement the fields, given through the interfaces
     theme = ''
     themeroller = ''
-    enableButtons = True
     enableStatusMessage = True
     enableDialogs = True
     enableForms = True
@@ -110,6 +109,7 @@ class UITool(UniqueObject, SimpleItem):
     enablePortlets = True
     enableFooter = True
     enableEditBar = True
+    enableFonts = True
 
     themeHashes = None
 
@@ -121,14 +121,15 @@ class UITool(UniqueObject, SimpleItem):
 
         result = ['$(document).ready(function() {']
 
+        if self.enableFonts:
+            result.append('enableFonts();')
         if self.enableDialogs:
             result.append('enableDialogs();')
         if self.enableStatusMessage:
             result.append('enableStatusMessage();')
-        if self.enableButtons:
-            result.append('enableButtons();')
-        if self.enableButtons:
+        if self.enableForms:
             result.append('enableForms();')
+            result.append('forms_are_enabled = true;')
         if self.enablePersonalTool:
             result.append('enablePersonalTool();')
         if self.enableTabs:

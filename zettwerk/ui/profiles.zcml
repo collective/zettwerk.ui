@@ -11,12 +11,12 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-  <genericsetup:importStep
-      name="zettwerk.ui.various"
-      title="Zettwerk UI Themer: miscellaneous import steps"
-      description="Various import steps that are not handled by GS import/export handlers."
-      handler="zettwerk.ui.setuphandlers.setupVarious">
-    <depends name="skins"/>
-  </genericsetup:importStep>
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="Zettwerk UI Themer"
+      directory="profiles/uninstall"
+      description="Removes Zettwerk UI Themer"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
 
 </configure>

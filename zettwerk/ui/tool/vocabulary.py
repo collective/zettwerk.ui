@@ -6,6 +6,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.vocabulary import SimpleTerm
 from ..filesystem import getDirectoriesOfDownloadHome
 
+
 class ListThemesVocabulary(object):
     """ A vocabulary, that lists existing themes of a given
     filesystem directory. """

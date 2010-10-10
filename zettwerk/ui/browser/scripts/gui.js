@@ -1,3 +1,33 @@
+// little helper to get width of hidden elements
+jQuery.fn.evenIfHidden = function( callback ) {
+    return this.each( function() {
+	var self = $(this);
+	var styleBackups = [];
+	
+	var hiddenElements = self.parents().andSelf().filter(':hidden');
+	
+	if ( ! hiddenElements.length ) {
+	    callback( self );
+	    return true; //continue the loop
+	}
+	
+	hiddenElements.each( function() {
+	    var style = $(this).attr('style');
+	    style = typeof style == 'undefined'? '': style;
+	    styleBackups.push( style );
+	    $(this).attr( 'style', style + ' display: block !important;' );
+	});
+	
+	hiddenElements.eq(0).css( 'left', -10000 );
+	
+	callback(self);
+	
+	hiddenElements.each( function() {
+	    $(this).attr( 'style', styleBackups.shift() );
+	});
+    });
+};
+
 var rulesToRemove = {};
 
 // this builds a data structure of all rules to remove
@@ -57,7 +87,9 @@ var removeRules = function() {
                         if (sheet.rules[j].selectorText.toLowerCase() == selector.toLowerCase()) {
                             for (var s=0; s<rulesToRemove[selector].length; s++) {
                                 var styleJS = rulesToRemove[selector][s][1];
-                                sheet.rules[j].style[styleJS] = '';
+				try {
+                                    sheet.rules[j].style[styleJS] = '';
+				} catch(e) { null }; // somes are added for chrome and causing problems here
                             }
                         }
                     }
@@ -66,6 +98,13 @@ var removeRules = function() {
         }
     }
 };
+
+var enableFonts = function() {
+    $('body').addClass('ui-widget');
+    removeRule('h1, h2, h3, h4, h5, h6', 'font-family', 'fontFamily');
+    removeRule('#content .documentDescription, #content #description', 'font', 'font'); // needed for chrome
+    removeRule('#content .documentDescription, #content #description', 'font-family', 'fontFamily');
+}
 
 var enablePersonalTool = function() {
     removeRule('#portal-personaltools', 'background-color', 'backgroundColor');
@@ -117,28 +156,92 @@ var enableStatusMessage = function() {
 		 });
 };
 
-var enableForms = function() {
-    $('input,select,textarea').addClass('ui-helper-reset ui-widget-content ui-button ui-corner-all');
-};
+var forms_are_enabled = false; // gets set via tool.js()
+var enableForms = function($content) {
+    if (!$content) {
+	var $content = $('body');
+    }
 
-var livesearch_interval = null;
-var enableButtons = function() {
+    $content.find('.optionsToggle').removeClass('optionsToggle');
+    $content.find('input,select,textarea').addClass('ui-widget-content ui-corner-all ui-button-text hover');
+    $content.find('input,select,textarea').wrap('<span class="ui-button-text-only"></span>').css({'padding-left': '4px', 'padding-right': '4px'});
+    
+    $content.find('select, textarea, input:text, input:password').bind({
+	focusin: function() {
+            $(this).addClass('ui-state-focus');
+        },
+        focusout: function() {
+            $(this).removeClass('ui-state-focus');
+        }
+    });
+
+    $content.find('input:checkbox').each(function() {
+    	var $label = $('<label />').insertBefore($(this));
+        $(this).hide();
+        $label.css({width:16,height:16,display:"inline-block"});
+        $label.wrap('<span class="ui-widget-content ui-corner-all" style="display:inline-block;width:16px;height:16px;margin-right:5px;"/>');
+        $label.parent().addClass('hover');
+        $label.parent("span").click(function(event) {
+            $(this).toggleClass("ui-state-active");
+            $label.toggleClass("ui-icon ui-icon-check");
+            $(this).next().click(); // trigger click on checkbox
+    	});
+	// initialize already checked ones
+	if ($(this).attr('checked')) {
+	    $label.parent("span").toggleClass("ui-state-active");
+	    $label.toggleClass("ui-icon ui-icon-check");
+	}
+
+    });
+
+    $content.find('input:radio').each(function() {
+	var $label = $('<label />').insertBefore($(this));
+	$(this).hide();
+	$label.addClass("ui-icon ui-icon-radio-off");
+	$label.wrap('<span class="ui-widget-content ui-corner-all" style="display:inline-block;width:16px;height:16px;margin-right:5px;"/>');
+	$label.parent().addClass('hover');
+	$label.parent("span").click(function(event) {
+	    if ($(this).next().attr('checked')) {
+		return // do nothing, if radiobox is already checked
+	    }
+	    // disable other radios of this group
+	    var checkbox_name = $(this).parent().find('input:radio').attr('name');
+	    var checkbox_value = $(this).parent().find('input:radio').val(); 
+	    $content.find('input:radio[name='+checkbox_name+']').each(function() {
+		if ($(this).val() != checkbox_value && $(this).attr('checked')) {
+		    $(this).parent().find('label').parent('span').toggleClass("ui-state-active");
+		    $(this).parent().find('label').toggleClass("ui-icon-radio-off ui-icon-bullet");
+		    $(this).next().click();
+		}
+	    });
+	    // check this radio
+	    $(this).toggleClass("ui-state-active");
+	    $label.toggleClass("ui-icon-radio-off ui-icon-bullet");
+	    $(this).next().click();
+	});
+	// initialize already checked ones
+	if ($(this).attr('checked')) {
+	    $label.parent("span").toggleClass("ui-state-active");
+	    $label.toggleClass("ui-icon-radio-off ui-icon-bullet");
+	}
+    });
+
+    $content.find(".hover").hover(function(){
+        $(this).addClass("ui-state-hover");
+    },function(){
+        $(this).removeClass("ui-state-hover");
+    });
+
+    // buttons
     $("input:submit").button();
     $("button").button();
 
     // and livesearch
-    removeRule('#LSResult fieldset', 'border-left-color-value', 'borderLeftColor');
-    removeRule('#LSResult fieldset', 'border-left-width-value', 'borderLeftWidth');
-    removeRule('#LSResult fieldset', 'border-right-color-value', 'borderRightColor');
-    removeRule('#LSResult fieldset', 'border-right-width-value', 'borderRightWidth');
-    removeRule('#LSResult fieldset', 'border-top-color', 'borderTopColor');
-    removeRule('#LSResult fieldset', 'border-top-width', 'borderTopWidth');
-    removeRule('#LSResult fieldset', 'border-bottom-color', 'borderBottomColor');
-    removeRule('#LSResult fieldset', 'border-bottom-width', 'borderBottomWidth');
+    removeRule('input.inputLabelActive', 'color', 'color');
     removeRule('#livesearchLegend', 'background-color', 'backgroundColor');
-
+    
     $('#LSResult').css('z-index', '100');
-    $('#LSShadow').addClass('ui-corner-all ui-widget-content');
+    $('#LSShadow').addClass('ui-corner-all ui-state-focus');
 }
 
 var enableDialogs = function() {
@@ -159,8 +262,7 @@ var enableDialogs = function() {
 };
 
 var showDialogContent = function(data, title) {
-    var $content = $(data).find('#portal-column-content');
-    $content.find('#portal-breadcrumbs').empty();
+    var $content = $(data).find('#content');
 
     // take the first heading as dialog title, if available
     $content.find('h1.documentFirstHeading').each(function() {
@@ -181,7 +283,10 @@ var showDialogContent = function(data, title) {
     
     // bring up the dialog
     $content.appendTo('#dialogContainer');
-    var $dialog = $('#dialogContainer').dialog({width: '500px', buttons: buttons});
+    if (forms_are_enabled) {
+	enableForms($content);
+    }
+    var $dialog = $('#dialogContainer').dialog({width: '60%', buttons: buttons});
 };
 
 var enableTabs = function() {
@@ -255,15 +360,24 @@ var enablePortlets = function() {
     removeRule('dl.portlet dt, div.portletAssignments div.portletHeader', 'background-repeat', 'backgroundRepeat');
     removeRule('dl.portlet dt, div.portletAssignments div.portletHeader', 'background-image', 'backgroundImage');
 
+    // special navportlet styling
     removeRule('div.managePortletsLink, a.managePortletsFallback', 'background-color', 'backgroundColor');
     removeRule('div.managePortletsLink, a.managePortletsFallback', 'background-position', 'backgroundPosition');
     removeRule('div.managePortletsLink, a.managePortletsFallback', 'background-repeat', 'backgroundRepeat');
     removeRule('div.managePortletsLink, a.managePortletsFallback', 'background-image', 'backgroundImage');
+    $('dl.portlet ul.navTree .navTreeCurrentItem').removeClass('navTreeCurrentItem').css('font-weight', 'bold');
+
+    // special calendar styling
+    // TODO: apply this after kss request
+    $('dl.portletCalendar .todaynoevent').removeClass('todaynoevent').addClass('ui-state-highlight');
+    $('dl.portletCalendar .event').removeClass('event').addClass('ui-state-default');
+    removeRule('.ploneCalendar .weekdays th', 'background-color', 'backgroundColor');
 
     removeRule('dl.portlet dt a:link, dl.portlet dt a:visited, dl.portlet dt a:hover', 'color', 'color');
 
     $('.portletHeader').addClass('ui-state-default ui-corner-all').removeClass('portletHeader');
-    $('dl.portlet').addClass('ui-widget ui-widget-content ui-corner-all ui-helper-reset').css('padding', '4px');
+    $('dl.portlet').addClass('ui-widget ui-widget-content ui-corner-all ui-helper-reset');
+    $('dl.portlet dt').css('margin', '4px')
     $('.managePortletsLink').button();
 };
 

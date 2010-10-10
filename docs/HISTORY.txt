@@ -1,6 +1,21 @@
 Changelog
 =========
 
+- customization of existing themes (just give it the same name when downloading)
+- added new option to enable global font styling
+- added checkbox styling
+- added radiobox styling
+- cleaned up overall forms styling
+- added forms styling to dialog content
+- fixed dialog styling
+- cleaned up navigation-portlet styling
+- merged enableButtons into enableForms
+- tuned livesearch result styling
+- updated jquery-ui to 1.8.5 (reinstall via quick-installer required)
+- made uninstall remove the controlpanel icon
+- updated translations
+- tested with plone 4.0.1
+
 0.14 (2010-09-19)
 -----------------
 

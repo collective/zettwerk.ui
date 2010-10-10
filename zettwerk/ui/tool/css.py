@@ -6,17 +6,18 @@ FORMS = """
     font-size: 1em;
 }
 input.searchButton {
-    font-size: .85em;
+    font-size: 1em;
 }
 input[type=text].ui-button,
 select.ui-button,
 textarea.ui-button {
     text-align: left;
-    padding-left: 4px;
-    padding-right: 4px;
 }
 input[type=text] {
     cursor: text;
+}
+#LSResult fieldset {
+    border-width: 0px;
 }
 """
 
@@ -33,6 +34,9 @@ STATUS_MESSAGE = """
 .ui-custom-status-container p a {
     font-weight: bold;
     text-decoration: underline;
+}
+.ui-dialog .ui-button {
+    font-size: .8em;
 }
 """
 

@@ -16,6 +16,7 @@ from ..tool.tool import IUITool, IUIToolSettings, IUIToolTheme
 from zettwerk.ui import messageFactory as _
 from ..filesystem import isAvailable, DOWNLOAD_HOME
 
+
 class UIControlPanelAdapter(SchemaAdapterBase):
     """ Adapter for the interface schema fields """
 
@@ -83,6 +84,7 @@ href="javascript:ploneDownloadTheme()">%s</a>''' % (add_link_text)
             return u'%s %s' % (open_link, name_div)
         else:
             return u'%s %s' % (open_link, create_dl)
+
 
 class UIControlPanel(ControlPanelForm):
     """ Build the ControlPanel form. """

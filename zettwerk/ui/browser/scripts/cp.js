@@ -86,8 +86,6 @@ var wrapper = function(hash) {
 
 var callThemeroller = function(hash) {
     // give the current hash to the themeroller, so he can take the settings of the theme
-    console.log(hash);
-
     if (hash) {
      window.location.href += '#'+hash;
     }

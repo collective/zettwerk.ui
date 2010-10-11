@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.20'
+version = '0.21'
 
 setup(name='zettwerk.ui',
       version=version,
@@ -17,7 +17,7 @@ setup(name='zettwerk.ui',
       keywords='plone, theme, themeroller',
       author='zettwerk GmbH',
       author_email='jk@zettwerk.com',
-      url='http://svn.plone.org/svn/collective/zettwerk.ui',
+      url='http://zettwerk.com',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['zettwerk'],

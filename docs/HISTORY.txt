@@ -1,7 +1,13 @@
 Changelog
 =========
 
-0.21 (2010-10-11)
+0.22 (unreleased)
+-----------------
+
+- Nothing changed yet.
+
+
+0.21 (2010-10-13)
 -----------------
 
 - removed console.log call

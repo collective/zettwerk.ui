@@ -1,11 +1,12 @@
 Changelog
 =========
 
-0.22 (unreleased)
+0.22 (2010-10-13)
 -----------------
 
-- Nothing changed yet.
-
+- made portlet's font size smaller
+- made edit of existing themes work after reinstall or uninstall-install
+- made edit of existing themes work for themes added via filesystem
 
 0.21 (2010-10-13)
 -----------------

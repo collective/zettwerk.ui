@@ -50,6 +50,7 @@ class ThemerollerDisplayWidget(DisplayWidget):
 
     def __call__(self):
         tool = self.context.context
+        tool._rebuildThemeHashes()
         if tool.theme and tool.themeHashes:
             hash = tool.themeHashes.get(tool.theme, '')
             themeroller = u"javascript:callThemeroller('%s')" % (hash)

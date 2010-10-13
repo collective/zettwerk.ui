@@ -376,7 +376,7 @@ var enablePortlets = function() {
     removeRule('dl.portlet dt a:link, dl.portlet dt a:visited, dl.portlet dt a:hover', 'color', 'color');
 
     $('.portletHeader').addClass('ui-state-default ui-corner-all').removeClass('portletHeader');
-    $('dl.portlet').addClass('ui-widget ui-widget-content ui-corner-all ui-helper-reset');
+    $('dl.portlet').addClass('ui-widget-content ui-corner-all ui-helper-reset');
     $('dl.portlet dt').css('margin', '4px')
     $('.managePortletsLink').button();
 };

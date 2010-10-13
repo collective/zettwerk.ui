@@ -12,7 +12,9 @@ from css import FORMS, STATUS_MESSAGE, TABS, FOOTER, PERSONAL_TOOL
 import urllib2
 from urllib import urlencode
 
-from ..filesystem import extractZipFile, storeBinaryFile, createDownloadFolder
+from ..filesystem import extractZipFile, storeBinaryFile, \
+    createDownloadFolder, getDirectoriesOfDownloadHome, \
+    getThemeHashOfCustomCSS
 from ..resources import registerResourceDirectory
 from ..filesystem import DOWNLOAD_HOME
 
@@ -184,6 +186,21 @@ class UITool(UniqueObject, SimpleItem):
         url = '%s/%s/@@ui-controlpanel' % (portal_url(),
                                            self.getId())
         self.REQUEST.RESPONSE.redirect(url)
+
+    def _rebuildThemeHashes(self):
+        """ For edit existing themes, the hash is needed. They are stored
+        in self.themeHashes. The problem with this: by quick-reinstalling
+        zettwerk.ui this attribute get None. Also, if new themes were
+        copied 'by hand' (as described in the README for deploying) the
+        themeHashes doesn't know the copied theme's hash. This method
+        reads all available themes and the theme-custom.css file to rebuild
+        the themeHashes attribute. Its called every time the control panel
+        view is called. """
+        theme_dirs = getDirectoriesOfDownloadHome()
+        for theme_dir in theme_dirs:
+            theme_hash = getThemeHashOfCustomCSS(theme_dir)
+            if theme_hash:
+                self.themeHashes.update({theme_dir: theme_hash})
 
     def createDLDirectory(self):
         """ Create the storage and register the resource"""

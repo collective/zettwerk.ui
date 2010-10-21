@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.23 (unreleased)
+0.23 (2010-10-21)
 -----------------
 
-- Nothing changed yet.
-
+- removed little extra margin for global tabs
+- made ui css work for @import stylesheets
 
 0.22 (2010-10-13)
 -----------------

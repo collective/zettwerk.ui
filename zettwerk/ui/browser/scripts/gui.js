@@ -49,48 +49,65 @@ var removeRule = function(selector, styleCSS, styleJS) {
     }
 };
 
+var getRulesOfSheetDOM = function(sheet) {
+    if (sheet.cssRules.length) {
+	if (sheet.cssRules[0].cssRules) {
+	    return sheet.cssRules[0].cssRules;
+	}
+	if (sheet.cssRules[0].styleSheet && sheet.cssRules[0].styleSheet.cssRules.length && sheet.cssRules[0].styleSheet.cssRules[0].cssRules) {
+
+	    return sheet.cssRules[0].styleSheet.cssRules[0].cssRules;
+	}
+    }
+    return [];
+}
+
+var getRulesOfSheetIE = function(sheet) {
+    if (sheet.imports && sheet.imports.length) {
+	return sheet.imports[0].rules;
+    } else {
+	return sheet.rules;
+    }
+}
+
 // this uses the populated rulesToRemove list to remove
 // (hopefully efficentally) the rules from the style objects
 var removeRules = function() {
     if (document.styleSheets[0]['cssRules']) { // FF/Dom Variant
         for(var i=0; i<document.styleSheets.length; i++) {
             var sheet = document.styleSheets[i];
-            if (sheet.href && sheet.href.indexOf('/css') == -1 && sheet.cssRules.length) {
-		if (sheet.cssRules[0].cssRules) {
-                    for (var j=0; j<sheet.cssRules[0].cssRules.length; j++) {
-			for (var selector in rulesToRemove) {
-                            if (sheet.cssRules[0].cssRules[j].selectorText == selector) {
-				// we found the selector - now look at the style setting
-				for (var s=0; s<rulesToRemove[selector].length; s++) {
-                                    var rule = sheet.cssRules[0].cssRules[j];
-                                    var styleCSS = rulesToRemove[selector][s][0];
-                                    var styleJS = rulesToRemove[selector][s][1];
-                                    for (var k=0; k<rule.style.length; k++) {
-					if (rule.style[k] == styleCSS) {
-                                            rule.style[styleJS] = null;
-					}
-                                    }
+	    var rules = getRulesOfSheetDOM(sheet);
+	    for (var j=0; j<rules.length; j++) {
+		for (var selector in rulesToRemove) {
+                    if (rules[j].selectorText == selector) {
+			// we found the selector - now look at the style setting
+			for (var s=0; s<rulesToRemove[selector].length; s++) {
+                            var rule = rules[j];
+                            var styleCSS = rulesToRemove[selector][s][0];
+                            var styleJS = rulesToRemove[selector][s][1];
+                            for (var k=0; k<rule.style.length; k++) {
+				if (rule.style[k] == styleCSS) {
+                                    rule.style[styleJS] = null;
 				}
                             }
 			}
-		    }
-                }
-            }
+                    }
+		}
+	    }
         }
     }
     else { // IE variant
 	for(var i=0; i<document.styleSheets.length; i++) {
             var sheet = document.styleSheets[i];
-            if (sheet.href && sheet.href.indexOf('/css') == -1 && sheet.rules.length) {
-                for (var j=0; j<sheet.rules.length; j++) {
-                    for (var selector in rulesToRemove) {
-                        if (sheet.rules[j].selectorText.toLowerCase() == selector.toLowerCase()) {
-                            for (var s=0; s<rulesToRemove[selector].length; s++) {
-                                var styleJS = rulesToRemove[selector][s][1];
-				try {
-                                    sheet.rules[j].style[styleJS] = '';
-				} catch(e) { null }; // somes are added for chrome and causing problems here
-                            }
+	    var rules = getRulesOfSheetIE(sheet);
+            for (var j=0; j<rules.length; j++) {
+                for (var selector in rulesToRemove) {
+                    if (rules[j].selectorText.toLowerCase() == selector.toLowerCase()) {
+                        for (var s=0; s<rulesToRemove[selector].length; s++) {
+                            var styleJS = rulesToRemove[selector][s][1];
+			    try {
+                                rules[j].style[styleJS] = '';
+			    } catch(e) { null }; // somes are added for chrome and causing problems here
                         }
                     }
                 }
@@ -352,6 +369,7 @@ var enableGlobalTabs = function() {
     $('#portal-globalnav li:first').addClass('ui-corner-left');
     $('#portal-globalnav li a').addClass('ui-button-text');
     $('#portal-globalnav').find('.selected').addClass('ui-state-active');
+    $('#portal-globalnav li.ui-button').css('margin-right', '0px');
 };
 
 var enablePortlets = function() {

@@ -201,14 +201,17 @@ var enableForms = function($content) {
         $label.parent("span").click(function(event) {
             $(this).toggleClass("ui-state-active");
             $label.toggleClass("ui-icon ui-icon-check");
-            $(this).next().click(); // trigger click on checkbox
+
+	    // see http://www.bennadel.com/blog/1525-jQuery-s-Event-Triggering-Order-Of-Default-Behavior-And-triggerHandler-.htm
+	    // for why to not use .click() here
+	    $(this).next()[0].checked = !$(this).next()[0].checked;
+	    $(this).next().triggerHandler("click");
     	});
 	// initialize already checked ones
 	if ($(this).attr('checked')) {
 	    $label.parent("span").toggleClass("ui-state-active");
 	    $label.toggleClass("ui-icon ui-icon-check");
 	}
-
     });
 
     $content.find('input:radio').each(function() {

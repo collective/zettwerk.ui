@@ -196,6 +196,9 @@ class UITool(UniqueObject, SimpleItem):
         reads all available themes and the theme-custom.css file to rebuild
         the themeHashes attribute. Its called every time the control panel
         view is called. """
+        if self.themeHashes is None:
+            self.themeHashes = PersistentMapping()
+
         theme_dirs = getDirectoriesOfDownloadHome()
         for theme_dir in theme_dirs:
             theme_hash = getThemeHashOfCustomCSS(theme_dir)

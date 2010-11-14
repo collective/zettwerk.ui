@@ -197,16 +197,20 @@ var enableForms = function($content) {
         $(this).hide();
         $label.css({width:16,height:16,display:"inline-block"});
         $label.wrap('<span class="ui-widget-content ui-corner-all" style="display:inline-block;width:16px;height:16px;margin-right:5px;"/>');
-        $label.parent().addClass('hover');
-        $label.parent("span").click(function(event) {
-            $(this).toggleClass("ui-state-active");
-            $label.toggleClass("ui-icon ui-icon-check");
+	if ($(this).attr('disabled')) {
+            $label.parent().addClass('ui-state-disabled');
+	} else {
+	    $label.parent().addClass('hover');
+            $label.parent("span").click(function(event) {
+		$(this).toggleClass("ui-state-active");
+		$label.toggleClass("ui-icon ui-icon-check");
 
-	    // see http://www.bennadel.com/blog/1525-jQuery-s-Event-Triggering-Order-Of-Default-Behavior-And-triggerHandler-.htm
-	    // for why to not use .click() here
-	    $(this).next()[0].checked = !$(this).next()[0].checked;
-	    $(this).next().triggerHandler("click");
-    	});
+		// see http://www.bennadel.com/blog/1525-jQuery-s-Event-Triggering-Order-Of-Default-Behavior-And-triggerHandler-.htm
+		// for why to not use .click() here
+		$(this).next()[0].checked = !$(this).next()[0].checked;
+		$(this).next().triggerHandler("click");
+	    });
+    	}
 	// initialize already checked ones
 	if ($(this).attr('checked')) {
 	    $label.parent("span").toggleClass("ui-state-active");
@@ -219,26 +223,30 @@ var enableForms = function($content) {
 	$(this).hide();
 	$label.addClass("ui-icon ui-icon-radio-off");
 	$label.wrap('<span class="ui-widget-content ui-corner-all" style="display:inline-block;width:16px;height:16px;margin-right:5px;"/>');
-	$label.parent().addClass('hover');
-	$label.parent("span").click(function(event) {
-	    if ($(this).next().attr('checked')) {
-		return // do nothing, if radiobox is already checked
-	    }
-	    // disable other radios of this group
-	    var checkbox_name = $(this).parent().find('input:radio').attr('name');
-	    var checkbox_value = $(this).parent().find('input:radio').val(); 
-	    $content.find('input:radio[name='+checkbox_name+']').each(function() {
-		if ($(this).val() != checkbox_value && $(this).attr('checked')) {
-		    $(this).parent().find('label').parent('span').toggleClass("ui-state-active");
-		    $(this).parent().find('label').toggleClass("ui-icon-radio-off ui-icon-bullet");
-		    $(this).next().click();
+	if ($(this).attr('disabled')) {
+            $label.parent().addClass('ui-state-disabled');
+	} else {
+	    $label.parent().addClass('hover');
+	    $label.parent("span").click(function(event) {
+		if ($(this).next().attr('checked')) {
+		    return // do nothing, if radiobox is already checked
 		}
+		// disable other radios of this group
+		var radio_name = $(this).parent().find('input:radio').attr('name');
+		var radio_value = $(this).parent().find('input:radio').val(); 
+		$content.find('input:radio[name='+radio_name+']').each(function() {
+		    if ($(this).val() != radio_value && $(this).attr('checked')) {
+			$(this).parent().find('label').parent('span').toggleClass("ui-state-active");
+			$(this).parent().find('label').toggleClass("ui-icon-radio-off ui-icon-bullet");
+			$(this).next().click();
+		    }
+		});
 	    });
 	    // check this radio
 	    $(this).toggleClass("ui-state-active");
 	    $label.toggleClass("ui-icon-radio-off ui-icon-bullet");
 	    $(this).next().click();
-	});
+	};
 	// initialize already checked ones
 	if ($(this).attr('checked')) {
 	    $label.parent("span").toggleClass("ui-state-active");
@@ -437,6 +445,8 @@ var enableEditBar = function() {
 
     // right actions
     removeRule('#contentActionMenus', 'background-color', 'backgroundColor');
+    removeRule('#contentActionMenus', '-moz-border-radius-topright', 'MozBorderRadiusTopright');
+    removeRule('#contentActionMenus', 'border-top-right-radius', 'borderTopRightRadius');
                 
     removeRule('#contentActionMenus dl.actionMenu a, #contentActionMenus dl.actionMenu.activated dd', 'background-color', 'backgroundColor');
     removeRule('#contentActionMenus dl.actionMenu a, #contentActionMenus dl.actionMenu.activated dd', 'color', 'color');
@@ -445,8 +455,8 @@ var enableEditBar = function() {
     removeRule('#contentActionMenus dl.actionMenu.activated dd', 'border-bottom-style', 'borderBottomStyle');
     removeRule('#contentActionMenus dl.actionMenu.activated dd', 'border-bottom-width', 'borderBottomWidth');
 
-    removeRule('#contentActionMenus dl.actionMenu.activated dd a:focus, #contentActionMenus dl.actionMenu.activated dd a:hover, #contentActionMenus dl.actionMenu.activated dd .actionMenuSelected', 'background-color', 'backgroundColor');
-    removeRule('#contentActionMenus dl.actionMenu.activated dd a:focus, #contentActionMenus dl.actionMenu.activated dd a:hover, #contentActionMenus dl.actionMenu.activated dd .actionMenuSelected', 'color', 'color');
+    removeRule('#contentActionMenus dl.actionMenu.activated dd a:hover, #contentActionMenus dl.actionMenu.activated dd .actionMenuSelected', 'background-color', 'backgroundColor');
+    removeRule('#contentActionMenus dl.actionMenu.activated dd a:hover, #contentActionMenus dl.actionMenu.activated dd .actionMenuSelected', 'color', 'color');
     removeRule('#contentActionMenus dl.actionMenu a:focus, #contentActionMenus dl.actionMenu a:hover', 'color', 'color');
 
     edit_bar_interval = window.setInterval('enableEditBar2()', 100);
@@ -465,11 +475,17 @@ var enableEditBar2 = function() {
 	    $(this).removeClass('ui-state-hover');
 	});
 
-	$('#contentActionMenus dd.actionMenuContent').addClass('ui-state-active ui-corner-bottom').css('right', '-1px').css('border-top', '0px').css('padding', '2px');
+	//$('#contentActionMenus dd.actionMenuContent').addClass('ui-state-active ui-corner-bottom').css('right', '-1px').css('border-top', '0px').css('padding', '2px');
+	var extra_spacer_height = $('#edit-bar').height();
+	$('<div style="height: '+extra_spacer_height+'px" id="ui-spacer"></div>').insertAfter($('#content-views'));
+	$('#contentActionMenus').addClass('ui-state-active ui-corner-bottom').css('border', '0px').css('padding-right', '0px').css('right', '-1px').css('top', '0px');
+	$('#contentActionMenus li dl').css('margin', '0px').css('margin-left', '5px').find('a').css('font-weight', 'bold');
+	$('#contentActionMenus li dl:last').css('margin-left', '0px');  // the first is the last?
+
 	$('#contentActionMenus dl.actionMenu').hover(function() {
-	    $(this).addClass('ui-state-hover ui-corner-top').css('border', '0px');
+	    $(this).addClass('ui-state-hover ui-corner-bottom').css('border', '0px');
 	}, function() {
-	    $(this).removeClass('ui-state-hover ui-corner-top');
+	    $(this).removeClass('ui-state-hover ui-corner-bttom');
 	});
 
 	$('#contentActionMenus a.actionMenuSelected').addClass('ui-state-default ui-corner-all');
@@ -478,5 +494,8 @@ var enableEditBar2 = function() {
 	}, function() {
 	    $(this).removeClass('ui-state-hover ui-corner-all');
 	});
+
+	$('dd.actionMenuContent').addClass('ui-state-active');
+	$('dd.actionMenuContent li a').css('padding-left', '3px').css('padding-right', '3px');
     }
 }

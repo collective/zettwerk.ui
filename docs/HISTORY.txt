@@ -1,11 +1,12 @@
 Changelog
 =========
 
-0.24 (unreleased)
+0.24 (2010-11-16)
 -----------------
 
-- Nothing changed yet.
-
+- added support for disabled radio- and checkboxes
+- updated jquery.ui to 1.8.6
+- tuned edit-bar styling
 
 0.23 (2010-10-21)
 -----------------

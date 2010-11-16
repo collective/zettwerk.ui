@@ -3,7 +3,7 @@ Introduction
 
 zettwerk.ui integrates jquery.ui and its themeroller into Plone 4. Themeroller is a tool to dynamically customize the jquery.ui css classes. For details about jquery.ui theming and themeroller see http://jqueryui.com/themeroller/.
 
-See it in action: http://www.youtube.com/watch?v=cf9958T07A8
+See it in action: http://www.youtube.com/watch?v=p4_jU-5HUYA
 
 Use-Cases
 =========

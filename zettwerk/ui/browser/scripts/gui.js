@@ -241,11 +241,11 @@ var enableForms = function($content) {
 			$(this).next().click();
 		    }
 		});
+		// check this radio
+		$(this).toggleClass("ui-state-active");
+		$label.toggleClass("ui-icon-radio-off ui-icon-bullet");
+		$(this).next().click();
 	    });
-	    // check this radio
-	    $(this).toggleClass("ui-state-active");
-	    $label.toggleClass("ui-icon-radio-off ui-icon-bullet");
-	    $(this).next().click();
 	};
 	// initialize already checked ones
 	if ($(this).attr('checked')) {

@@ -325,7 +325,10 @@ var enableTabs = function() {
 
     $('<div class="ui-tabs ui-widget ui-widget-content ui-corner-all"></div>').insertBefore($('ul.formTabs'));
     $('ul.formTabs').appendTo('div.ui-tabs');
-    $('fieldset').appendTo('div.ui-tabs');
+
+    $('.enableFormTabbing fieldset').appendTo('div.ui-tabs');
+    $('dl.enableFormTabbing').appendTo('div.ui-tabs');
+
     $('ul.formTabs').addClass('ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top').removeClass('formTabs');
     $('div.ui-tabs ul li.formTab').addClass('ui-state-default ui-corner-top').removeClass('formTab').css('display', 'inline').hover(function() {
         $(this).addClass('ui-state-hover');

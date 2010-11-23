@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.25 (unreleased)
+0.25 (2010-11-23)
 -----------------
 
-- Nothing changed yet.
-
+- made enableTabs work with <dl class="enableFormTabbing"> based tabs
 
 0.24 (2010-11-16)
 -----------------

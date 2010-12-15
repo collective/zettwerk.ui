@@ -4,7 +4,8 @@ Changelog
 0.26 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- updated jquery.ui to 1.8.7 (reinstall via quick-installer required)
+- changed ui base resource integration to avoid required reinstalls for the upcoming ui updates
 
 
 0.25 (2010-11-23)

@@ -1,10 +1,10 @@
 Changelog
 =========
 
-0.28 (unreleased)
+0.28 (2011-01-11)
 -----------------
 
-- Nothing changed yet.
+- Back to old version numbering schema - to make buildout updates work.
 
 
 0.2.7 (2011-01-11)

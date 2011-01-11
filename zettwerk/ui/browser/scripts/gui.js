@@ -1,7 +1,7 @@
 // little helper to get width of hidden elements
 jQuery.fn.evenIfHidden = function( callback ) {
     return this.each( function() {
-	var self = $(this);
+	var self = jq(this);
 	var styleBackups = [];
 	
 	var hiddenElements = self.parents().andSelf().filter(':hidden');
@@ -12,10 +12,10 @@ jQuery.fn.evenIfHidden = function( callback ) {
 	}
 	
 	hiddenElements.each( function() {
-	    var style = $(this).attr('style');
+	    var style = jq(this).attr('style');
 	    style = typeof style == 'undefined'? '': style;
 	    styleBackups.push( style );
-	    $(this).attr( 'style', style + ' display: block !important;' );
+	    jq(this).attr( 'style', style + ' display: block !important;' );
 	});
 	
 	hiddenElements.eq(0).css( 'left', -10000 );
@@ -23,7 +23,7 @@ jQuery.fn.evenIfHidden = function( callback ) {
 	callback(self);
 	
 	hiddenElements.each( function() {
-	    $(this).attr( 'style', styleBackups.shift() );
+	    jq(this).attr( 'style', styleBackups.shift() );
 	});
     });
 };
@@ -117,7 +117,7 @@ var removeRules = function() {
 };
 
 var enableFonts = function() {
-    $('body').addClass('ui-widget');
+    jq('body').addClass('ui-widget');
     removeRule('h1, h2, h3, h4, h5, h6', 'font-family', 'fontFamily');
     removeRule('#content .documentDescription, #content #description', 'font', 'font'); // needed for chrome
     removeRule('#content .documentDescription, #content #description', 'font-family', 'fontFamily');
@@ -132,10 +132,10 @@ var enablePersonalTool = function() {
     removeRule('#portal-personaltools', '-moz-border-radius-bottomleft', 'MozBorderRadiusBottomleft');
     removeRule('#portal-personaltools', '-moz-border-radius-bottomright', 'MozBorderRadiusBottomright');
 
-    $('#portal-personaltools').addClass('ui-helper-reset ui-state-default ui-corner-bottom').hover(function() {
-        $(this).addClass('ui-state-hover');
+    jq('#portal-personaltools').addClass('ui-helper-reset ui-state-default ui-corner-bottom').hover(function() {
+        jq(this).addClass('ui-state-hover');
     }, function() {
-        $(this).removeClass('ui-state-hover');
+        jq(this).removeClass('ui-state-hover');
     });
 
     removeRule('#portal-personaltools dd', 'background-color', 'backgroundColor');
@@ -147,28 +147,28 @@ var enablePersonalTool = function() {
     removeRule('#portal-personaltools dd a:hover', 'background-repeat', 'backgroundRepeat');
     removeRule('#portal-personaltools dd a:hover', 'background-image', 'backgroundImage');
     removeRule('#portal-personaltools dd a:hover', 'color', 'color');
-    $('#portal-personaltools dd').addClass('ui-helper-reset ui-state-default ui-corner-all').css('top', '22px');
+    jq('#portal-personaltools dd').addClass('ui-helper-reset ui-state-default ui-corner-all').css('top', '22px');
 
-    $('#portal-personaltools dd a').hover(function() {
-        $(this).addClass('ui-state-hover');
+    jq('#portal-personaltools dd a').hover(function() {
+        jq(this).addClass('ui-state-hover');
     }, function() {
-        $(this).removeClass('ui-state-hover');
+        jq(this).removeClass('ui-state-hover');
     });
 };
 
 var enableStatusMessage = function() {
-    var $status = $('dl.portalMessage.info,dl.portalMessage.warning,dl.portalMessage.error');
+    var $status = jq('dl.portalMessage.info,dl.portalMessage.warning,dl.portalMessage.error');
     $status.each(function() {
-		     if ($(this).attr('id') != 'kssPortalMessage') {
-			 $(this).hide(); // hide the plone message
-			 var label = $(this).find('dt').html();
-			 var content = $(this).find('dd').html();
-			 if ($(this).hasClass('error')) {
+		     if (jq(this).attr('id') != 'kssPortalMessage') {
+			 jq(this).hide(); // hide the plone message
+			 var label = jq(this).find('dt').html();
+			 var content = jq(this).find('dd').html();
+			 if (jq(this).hasClass('error')) {
 			     var template = '<div class="ui-custom-status-container ui-state-error ui-corner-all"><p><span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-alert"></span><strong>'+label+'</strong>\n'+content+'</p></div>';
 			 } else {
 			     var template = '<div class="ui-custom-status-container ui-state-highlight ui-corner-all"><p><span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-info"></span><strong>'+label+'</strong>\n'+content+'</p></div>';
 			 }
-			 $('#viewlet-above-content').after(template);
+			 jq('#viewlet-above-content').after(template);
 		     }
 		 });
 };
@@ -176,7 +176,7 @@ var enableStatusMessage = function() {
 var forms_are_enabled = false; // gets set via tool.js()
 var enableForms = function($content) {
     if (!$content) {
-	var $content = $('body');
+	var $content = jq('body');
     }
 
     $content.find('.optionsToggle').removeClass('optionsToggle');
@@ -185,101 +185,101 @@ var enableForms = function($content) {
     
     $content.find('select, textarea, input:text, input:password').bind({
 	focusin: function() {
-            $(this).addClass('ui-state-focus');
+            jq(this).addClass('ui-state-focus');
         },
         focusout: function() {
-            $(this).removeClass('ui-state-focus');
+            jq(this).removeClass('ui-state-focus');
         }
     });
 
     $content.find('input:checkbox').each(function() {
-    	var $label = $('<label />').insertBefore($(this));
-        $(this).hide();
+    	var $label = jq('<label />').insertBefore(jq(this));
+        jq(this).hide();
         $label.css({width:16,height:16,display:"inline-block"});
         $label.wrap('<span class="ui-widget-content ui-corner-all" style="display:inline-block;width:16px;height:16px;margin-right:5px;"/>');
-	if ($(this).attr('disabled')) {
+	if (jq(this).attr('disabled')) {
             $label.parent().addClass('ui-state-disabled');
 	} else {
 	    $label.parent().addClass('hover');
             $label.parent("span").click(function(event) {
-		$(this).toggleClass("ui-state-active");
+		jq(this).toggleClass("ui-state-active");
 		$label.toggleClass("ui-icon ui-icon-check");
 
 		// see http://www.bennadel.com/blog/1525-jQuery-s-Event-Triggering-Order-Of-Default-Behavior-And-triggerHandler-.htm
 		// for why to not use .click() here
-		$(this).next()[0].checked = !$(this).next()[0].checked;
-		$(this).next().triggerHandler("click");
+		jq(this).next()[0].checked = !jq(this).next()[0].checked;
+		jq(this).next().triggerHandler("click");
 	    });
     	}
 	// initialize already checked ones
-	if ($(this).attr('checked')) {
+	if (jq(this).attr('checked')) {
 	    $label.parent("span").toggleClass("ui-state-active");
 	    $label.toggleClass("ui-icon ui-icon-check");
 	}
     });
 
     $content.find('input:radio').each(function() {
-	var $label = $('<label />').insertBefore($(this));
-	$(this).hide();
+	var $label = jq('<label />').insertBefore(jq(this));
+	jq(this).hide();
 	$label.addClass("ui-icon ui-icon-radio-off");
 	$label.wrap('<span class="ui-widget-content ui-corner-all" style="display:inline-block;width:16px;height:16px;margin-right:5px;"/>');
-	if ($(this).attr('disabled')) {
+	if (jq(this).attr('disabled')) {
             $label.parent().addClass('ui-state-disabled');
 	} else {
 	    $label.parent().addClass('hover');
 	    $label.parent("span").click(function(event) {
-		if ($(this).next().attr('checked')) {
+		if (jq(this).next().attr('checked')) {
 		    return // do nothing, if radiobox is already checked
 		}
 		// disable other radios of this group
-		var radio_name = $(this).parent().find('input:radio').attr('name');
-		var radio_value = $(this).parent().find('input:radio').val(); 
+		var radio_name = jq(this).parent().find('input:radio').attr('name');
+		var radio_value = jq(this).parent().find('input:radio').val(); 
 		$content.find('input:radio[name='+radio_name+']').each(function() {
-		    if ($(this).val() != radio_value && $(this).attr('checked')) {
-			$(this).parent().find('label').parent('span').toggleClass("ui-state-active");
-			$(this).parent().find('label').toggleClass("ui-icon-radio-off ui-icon-bullet");
-			$(this).next().click();
+		    if (jq(this).val() != radio_value && jq(this).attr('checked')) {
+			jq(this).parent().find('label').parent('span').toggleClass("ui-state-active");
+			jq(this).parent().find('label').toggleClass("ui-icon-radio-off ui-icon-bullet");
+			jq(this).next().click();
 		    }
 		});
 		// check this radio
-		$(this).toggleClass("ui-state-active");
+		jq(this).toggleClass("ui-state-active");
 		$label.toggleClass("ui-icon-radio-off ui-icon-bullet");
-		$(this).next().click();
+		jq(this).next().click();
 	    });
 	};
 	// initialize already checked ones
-	if ($(this).attr('checked')) {
+	if (jq(this).attr('checked')) {
 	    $label.parent("span").toggleClass("ui-state-active");
 	    $label.toggleClass("ui-icon-radio-off ui-icon-bullet");
 	}
     });
 
     $content.find(".hover").hover(function(){
-        $(this).addClass("ui-state-hover");
+        jq(this).addClass("ui-state-hover");
     },function(){
-        $(this).removeClass("ui-state-hover");
+        jq(this).removeClass("ui-state-hover");
     });
 
     // buttons
-    $("input:submit").button();
-    $("button").button();
+    jq("input:submit").button();
+    jq("button").button();
 
     // and livesearch
     removeRule('input.inputLabelActive', 'color', 'color');
     removeRule('#livesearchLegend', 'background-color', 'backgroundColor');
     
-    $('#LSResult').css('z-index', '100');
-    $('#LSShadow').addClass('ui-corner-all ui-state-focus');
+    jq('#LSResult').css('z-index', '100');
+    jq('#LSShadow').addClass('ui-corner-all ui-state-focus');
 }
 
 var enableDialogs = function() {
-    $("a.link-overlay").unbind('click').click(function() {
+    jq("a.link-overlay").unbind('click').click(function() {
         // remove old dialogs
-        $('#dialogContainer').remove();
+        jq('#dialogContainer').remove();
 
         // use the links content as default title of the dialog
-        var title = $(this).html();
-        $.get($(this).attr('href'),
+        var title = jq(this).html();
+        $.get(jq(this).attr('href'),
               {},
 	      function(data) {
 		  showDialogContent(data,title)
@@ -290,23 +290,23 @@ var enableDialogs = function() {
 };
 
 var showDialogContent = function(data, title) {
-    var $content = $(data).find('#content');
+    var $content = jq(data).find('#content');
 
     // take the first heading as dialog title, if available
     $content.find('h1.documentFirstHeading').each(function() {
-        title = $(this).html();
-        $(this).hide();
+        title = jq(this).html();
+        jq(this).hide();
     });
-    $('<div id="dialogContainer" title="'+title+'"></div>').appendTo('body');
+    jq('<div id="dialogContainer" title="'+title+'"></div>').appendTo('body');
     
     // search for submit buttons and use them as dialog buttons
     var buttons = {};
     $content.find('input[type=submit]').each(function() {
-        var buttonValue = $(this).val();
+        var buttonValue = jq(this).val();
         buttons[buttonValue] = function() {
-            $('input[type=submit][value='+buttonValue+']').click();
+            jq('input[type=submit][value='+buttonValue+']').click();
         };
-        $(this).hide();
+        jq(this).hide();
     });
     
     // bring up the dialog
@@ -314,7 +314,7 @@ var showDialogContent = function(data, title) {
     if (forms_are_enabled) {
 	enableForms($content);
     }
-    var $dialog = $('#dialogContainer').dialog({width: '60%', buttons: buttons});
+    var $dialog = jq('#dialogContainer').dialog({width: '60%', buttons: buttons});
 };
 
 var enableTabs = function() {
@@ -323,23 +323,23 @@ var enableTabs = function() {
     removeRule('#content a:hover, dl.portlet a:hover', 'color', 'color');
     removeRule('#content a:focus, #content a:hover, dl.portlet a:focus, dl.portlet a:hover', 'color', 'color');
 
-    $('<div class="ui-tabs ui-widget ui-widget-content ui-corner-all"></div>').insertBefore($('ul.formTabs'));
-    $('ul.formTabs').appendTo('div.ui-tabs');
+    jq('<div class="ui-tabs ui-widget ui-widget-content ui-corner-all"></div>').insertBefore(jq('ul.formTabs'));
+    jq('ul.formTabs').appendTo('div.ui-tabs');
 
-    $('.enableFormTabbing fieldset').appendTo('div.ui-tabs');
-    $('dl.enableFormTabbing').appendTo('div.ui-tabs');
+    jq('.enableFormTabbing fieldset').appendTo('div.ui-tabs');
+    jq('dl.enableFormTabbing').appendTo('div.ui-tabs');
 
-    $('ul.formTabs').addClass('ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top').removeClass('formTabs');
-    $('div.ui-tabs ul li.formTab').addClass('ui-state-default ui-corner-top').removeClass('formTab').css('display', 'inline').hover(function() {
-        $(this).addClass('ui-state-hover');
+    jq('ul.formTabs').addClass('ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top').removeClass('formTabs');
+    jq('div.ui-tabs ul li.formTab').addClass('ui-state-default ui-corner-top').removeClass('formTab').css('display', 'inline').hover(function() {
+        jq(this).addClass('ui-state-hover');
     }, function() {
-        $(this).removeClass('ui-state-hover');
+        jq(this).removeClass('ui-state-hover');
     });
-    $('div.ui-tabs li a').click(function() {
-        $(this).parent().parent().find('.ui-state-active').removeClass('ui-state-active');
-        $(this).parent().addClass('ui-state-active');
+    jq('div.ui-tabs li a').click(function() {
+        jq(this).parent().parent().find('.ui-state-active').removeClass('ui-state-active');
+        jq(this).parent().addClass('ui-state-active');
     });
-    $('ul.ui-tabs-nav').find('.selected').parent().addClass('ui-state-active');
+    jq('ul.ui-tabs-nav').find('.selected').parent().addClass('ui-state-active');
 };
 
 var enableGlobalTabs = function() {
@@ -371,19 +371,19 @@ var enableGlobalTabs = function() {
 
     removeRule('#portal-globalnav .selected a, #portal-globalnav a:hover', 'color', 'color');
 
-    $('<div id="ui-globalnav" class="ui-bottonset"></div>').insertBefore('#portal-globalnav');
-    $('#portal-globalnav').appendTo('#ui-globalnav');
+    jq('<div id="ui-globalnav" class="ui-bottonset"></div>').insertBefore('#portal-globalnav');
+    jq('#portal-globalnav').appendTo('#ui-globalnav');
 
-    $('#portal-globalnav').addClass('ui-state-default ui-corner-all');
-    $('#portal-globalnav li').addClass('ui-button ui-widget ui-state-default ui-botton-text-only').css('border', '0px solid black').hover(function() {
-        $(this).addClass('ui-state-hover');
+    jq('#portal-globalnav').addClass('ui-state-default ui-corner-all');
+    jq('#portal-globalnav li').addClass('ui-button ui-widget ui-state-default ui-botton-text-only').css('border', '0px solid black').hover(function() {
+        jq(this).addClass('ui-state-hover');
     }, function() {
-        $(this).removeClass('ui-state-hover');
+        jq(this).removeClass('ui-state-hover');
     });
-    $('#portal-globalnav li:first').addClass('ui-corner-left');
-    $('#portal-globalnav li a').addClass('ui-button-text');
-    $('#portal-globalnav').find('.selected').addClass('ui-state-active');
-    $('#portal-globalnav li.ui-button').css('margin-right', '0px');
+    jq('#portal-globalnav li:first').addClass('ui-corner-left');
+    jq('#portal-globalnav li a').addClass('ui-button-text');
+    jq('#portal-globalnav').find('.selected').addClass('ui-state-active');
+    jq('#portal-globalnav li.ui-button').css('margin-right', '0px');
 };
 
 var enablePortlets = function() {
@@ -397,20 +397,20 @@ var enablePortlets = function() {
     removeRule('div.managePortletsLink, a.managePortletsFallback', 'background-position', 'backgroundPosition');
     removeRule('div.managePortletsLink, a.managePortletsFallback', 'background-repeat', 'backgroundRepeat');
     removeRule('div.managePortletsLink, a.managePortletsFallback', 'background-image', 'backgroundImage');
-    $('dl.portlet ul.navTree .navTreeCurrentItem').removeClass('navTreeCurrentItem').css('font-weight', 'bold');
+    jq('dl.portlet ul.navTree .navTreeCurrentItem').removeClass('navTreeCurrentItem').css('font-weight', 'bold');
 
     // special calendar styling
     // TODO: apply this after kss request
-    $('dl.portletCalendar .todaynoevent').removeClass('todaynoevent').addClass('ui-state-highlight');
-    $('dl.portletCalendar .event').removeClass('event').addClass('ui-state-default');
+    jq('dl.portletCalendar .todaynoevent').removeClass('todaynoevent').addClass('ui-state-highlight');
+    jq('dl.portletCalendar .event').removeClass('event').addClass('ui-state-default');
     removeRule('.ploneCalendar .weekdays th', 'background-color', 'backgroundColor');
 
     removeRule('dl.portlet dt a:link, dl.portlet dt a:visited, dl.portlet dt a:hover', 'color', 'color');
 
-    $('.portletHeader').addClass('ui-state-default ui-corner-all').removeClass('portletHeader');
-    $('dl.portlet').addClass('ui-widget-content ui-corner-all ui-helper-reset');
-    $('dl.portlet dt').css('margin', '4px')
-    $('.managePortletsLink').button();
+    jq('.portletHeader').addClass('ui-state-default ui-corner-all').removeClass('portletHeader');
+    jq('dl.portlet').addClass('ui-widget-content ui-corner-all ui-helper-reset');
+    jq('dl.portlet dt').css('margin', '4px')
+    jq('.managePortletsLink').button();
 };
 
 var enableFooter = function() {
@@ -419,7 +419,7 @@ var enableFooter = function() {
     removeRule('#portal-footer', 'background-repeat', 'backgroundRepeat');
     removeRule('#portal-footer', 'background-image', 'backgroundImage');
 
-    $('#portal-footer').addClass('ui-state-active ui-corner-all');
+    jq('#portal-footer').addClass('ui-state-active ui-corner-all');
 };
 
 var edit_bar_interval = null;
@@ -466,39 +466,39 @@ var enableEditBar = function() {
 }
 
 var enableEditBar2 = function() {
-    if ($('#edit-bar').length) {
+    if (jq('#edit-bar').length) {
 	window.clearInterval(edit_bar_interval);
 
 	// using inverted colors
-	$('#edit-bar').addClass('ui-state-active ui-corner-top');
-	$('#content-views li.selected a').addClass('ui-state-default');
-	$('#content-views li a').hover(function() {
-	    $(this).addClass('ui-state-hover');
+	jq('#edit-bar').addClass('ui-state-active ui-corner-top');
+	jq('#content-views li.selected a').addClass('ui-state-default');
+	jq('#content-views li a').hover(function() {
+	    jq(this).addClass('ui-state-hover');
 	}, function() {
-	    $(this).removeClass('ui-state-hover');
+	    jq(this).removeClass('ui-state-hover');
 	});
 
-	//$('#contentActionMenus dd.actionMenuContent').addClass('ui-state-active ui-corner-bottom').css('right', '-1px').css('border-top', '0px').css('padding', '2px');
-	var extra_spacer_height = $('#edit-bar').height();
-	$('<div style="height: '+extra_spacer_height+'px" id="ui-spacer"></div>').insertAfter($('#content-views'));
-	$('#contentActionMenus').addClass('ui-state-active ui-corner-bottom').css('border', '0px').css('padding-right', '0px').css('right', '-1px').css('top', '0px');
-	$('#contentActionMenus li dl').css('margin', '0px').css('margin-left', '5px').find('a').css('font-weight', 'bold');
-	$('#contentActionMenus li dl:last').css('margin-left', '0px');  // the first is the last?
+	//jq('#contentActionMenus dd.actionMenuContent').addClass('ui-state-active ui-corner-bottom').css('right', '-1px').css('border-top', '0px').css('padding', '2px');
+	var extra_spacer_height = jq('#edit-bar').height();
+	jq('<div style="height: '+extra_spacer_height+'px" id="ui-spacer"></div>').insertAfter(jq('#content-views'));
+	jq('#contentActionMenus').addClass('ui-state-active ui-corner-bottom').css('border', '0px').css('padding-right', '0px').css('right', '-1px').css('top', '0px');
+	jq('#contentActionMenus li dl').css('margin', '0px').css('margin-left', '5px').find('a').css('font-weight', 'bold');
+	jq('#contentActionMenus li dl:last').css('margin-left', '0px');  // the first is the last?
 
-	$('#contentActionMenus dl.actionMenu').hover(function() {
-	    $(this).addClass('ui-state-hover ui-corner-bottom').css('border', '0px');
+	jq('#contentActionMenus dl.actionMenu').hover(function() {
+	    jq(this).addClass('ui-state-hover ui-corner-bottom').css('border', '0px');
 	}, function() {
-	    $(this).removeClass('ui-state-hover ui-corner-bttom');
+	    jq(this).removeClass('ui-state-hover ui-corner-bttom');
 	});
 
-	$('#contentActionMenus a.actionMenuSelected').addClass('ui-state-default ui-corner-all');
-	$('#contentActionMenus a').hover(function() {
-	    $(this).addClass('ui-state-hover ui-corner-all').css('border', '0px');
+	jq('#contentActionMenus a.actionMenuSelected').addClass('ui-state-default ui-corner-all');
+	jq('#contentActionMenus a').hover(function() {
+	    jq(this).addClass('ui-state-hover ui-corner-all').css('border', '0px');
 	}, function() {
-	    $(this).removeClass('ui-state-hover ui-corner-all');
+	    jq(this).removeClass('ui-state-hover ui-corner-all');
 	});
 
-	$('dd.actionMenuContent').addClass('ui-state-active');
-	$('dd.actionMenuContent li a').css('padding-left', '3px').css('padding-right', '3px');
+	jq('dd.actionMenuContent').addClass('ui-state-active');
+	jq('dd.actionMenuContent li a').css('padding-left', '3px').css('padding-right', '3px');
     }
 }

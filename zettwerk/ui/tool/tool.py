@@ -121,7 +121,7 @@ class UITool(UniqueObject, SimpleItem):
         self.REQUEST.RESPONSE.setHeader('content-type',
                                         content_type_header)
 
-        result = ['$(document).ready(function() {']
+        result = ['jq(document).ready(function() {']
 
         if self.enableFonts:
             result.append('enableFonts();')

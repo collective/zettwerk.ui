@@ -5,6 +5,7 @@ Changelog
 -----------------
 
 - Back to old version numbering schema - to make buildout updates work.
+- added Spanish translation
 
 
 0.2.7 (2011-01-11)

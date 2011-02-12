@@ -1,11 +1,12 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.28'
+version = '0.30dev'
 
 setup(name='zettwerk.ui',
       version=version,
-      description="Adding jquery.ui and themeroller to plone 4 for easy theme customization.",
+      description="Adding jquery.ui and themeroller to plone 4 " \
+          "for easy theme customization.",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from

@@ -3,9 +3,16 @@ import re
 import zipfile
 import fileinput
 from stat import S_ISDIR, ST_MODE
+import Globals
 
-BUILDOUT_HOME = os.path.join(INSTANCE_HOME, '..', '..')
-DOWNLOAD_HOME = os.path.join(BUILDOUT_HOME, 'zettwerk.ui.downloads')
+INSTANCE_HOME = getattr(Globals, 'INSTANCE_HOME', None)
+if INSTANCE_HOME is not None:
+    BUILDOUT_HOME = os.path.join(INSTANCE_HOME, '..', '..')
+    DOWNLOAD_HOME = os.path.join(BUILDOUT_HOME, 'zettwerk.ui.downloads')
+else:
+    ## fail-safe when used without zope
+    BUILDOUT_HOME = '.'
+    DOWNLOAD_HOME = os.path.join(BUILDOUT_HOME, 'zettwerk.ui.downloads')
 
 
 def isAvailable():

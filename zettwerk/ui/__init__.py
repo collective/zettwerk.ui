@@ -12,9 +12,10 @@ registerResourceDirectory(name='zettwerk.ui.themes',
 from Products.CMFCore import utils
 from tool.tool import UITool
 
+
 def initialize(context):
     """Initializer called when used as a Zope 2 product."""
 
-    utils.ToolInit('Zettwerk UI Tool', tools=(UITool,),
+    utils.ToolInit('Zettwerk UI Tool', tools=(UITool, ),
                    icon='z.png'
                    ).initialize(context)

@@ -1,11 +1,18 @@
 Changelog
 =========
 
+0.30 (unreleased)
+-----------------
+
+- added Spanish translation [macagua]
+- changed some imports suitable for Plone 4.1
+- pep8 cleanups
+
+
 0.28 (2011-01-11)
 -----------------
 
 - Back to old version numbering schema - to make buildout updates work.
-- added Spanish translation
 
 
 0.2.7 (2011-01-11)

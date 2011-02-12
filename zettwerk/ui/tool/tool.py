@@ -66,26 +66,49 @@ class IUIToolTheme(Interface):
 class IUIToolSettings(Interface):
     """ UITool interface for setting fields """
 
-    enableFonts = schema.Bool(title=_(u"Enable fonts styling"),
-                                   description=_(u"Use jquery ui's font class for global font styling"))
-    enableGlobalTabs = schema.Bool(title=_(u"Enable global-tabs styling"),
-                                   description=_(u"Use jquery ui's tabs classes for global-tab styling (this do not use ui's tabs())"))
-    enableDialogs = schema.Bool(title=_(u"Enable dialogs"),
-                                description=_(u"This applies dialog() to a.link-overlay links"))
-    enableStatusMessage = schema.Bool(title=_(u"Enable status messages"),
-                                      description=_(u"Use jquery ui's status message styling"))
-    enablePersonalTool = schema.Bool(title=_(u"Enable personal-tool"),
-                                     description=_(u"Use jquery ui's widget class for personal-tool styling"))
-    enablePortlets = schema.Bool(title=_(u"Enable portelts styling"),
-                                   description=_(u"Use jquery ui's tabs classes for portlet styling"))
-    enableTabs = schema.Bool(title=_(u"Enable tabs styling"),
-                             description=_(u"Use jquery ui's tabs classes for tab styling (this do not use ui's tabs())"))
-    enableEditBar = schema.Bool(title=_(u"Enable edit bar styling"),
-                                   description=_(u"Use jquery ui's classes for edit bar styling"))
-    enableForms = schema.Bool(title=_(u"Enable forms"),
-                              description=_(u"Use ui css classes for form elements"))
-    enableFooter = schema.Bool(title=_(u"Enable footer styling"),
-                                   description=_(u"Use jquery ui's classes for footer styling"))
+    enableFonts = schema.Bool(
+        title=_(u"Enable fonts styling"),
+        description=_(u"Use jquery ui's font class for global font styling")
+        )
+    enableGlobalTabs = schema.Bool(
+        title=_(u"Enable global-tabs styling"),
+        description=_(u"Use jquery ui's tabs classes for global-tab " \
+                          "styling (this do not use ui's tabs())")
+        )
+    enableDialogs = schema.Bool(
+        title=_(u"Enable dialogs"),
+        description=_(u"This applies dialog() to a.link-overlay links")
+        )
+    enableStatusMessage = schema.Bool(
+        title=_(u"Enable status messages"),
+        description=_(u"Use jquery ui's status message styling")
+        )
+    enablePersonalTool = schema.Bool(
+        title=_(u"Enable personal-tool"),
+        description=_(u"Use jquery ui's widget class for personal-tool " \
+                          "styling")
+        )
+    enablePortlets = schema.Bool(
+        title=_(u"Enable portelts styling"),
+        description=_(u"Use jquery ui's tabs classes for portlet styling")
+        )
+    enableTabs = schema.Bool(
+        title=_(u"Enable tabs styling"),
+        description=_(u"Use jquery ui's tabs classes for tab styling " \
+                          "(this do not use ui's tabs())")
+        )
+    enableEditBar = schema.Bool(
+        title=_(u"Enable edit bar styling"),
+        description=_(u"Use jquery ui's classes for edit bar styling")
+        )
+    enableForms = schema.Bool(
+        title=_(u"Enable forms"),
+        description=_(u"Use ui css classes for form elements")
+        )
+    enableFooter = schema.Bool(
+        title=_(u"Enable footer styling"),
+        description=_(u"Use jquery ui's classes for footer styling")
+        )
 
 
 class IUITool(IUIToolSettings, IUIToolTheme):

@@ -57,10 +57,14 @@ class ThemerollerDisplayWidget(DisplayWidget):
         else:
             themeroller = u"javascript:callThemeroller()"
 
-        open_link = '<a href="%s">%s</a>' % (themeroller,
-                                             translate(_(u"Open jquery.ui themeroller (only firefox)"),
-                                                       domain="zettwerk.ui",
-                                                       context=self.request))
+        open_link = '<a href="%s">%s</a>' % (
+            themeroller,
+            translate(
+                _(u"Open jquery.ui themeroller (only firefox)"),
+                domain="zettwerk.ui",
+                context=self.request
+            )
+        )
 
         name_help = translate(_(u"Name of the new theme"),
                               domain='zettwerk.ui',
@@ -69,8 +73,8 @@ class ThemerollerDisplayWidget(DisplayWidget):
         add_link_text = translate(_(u'Add theme to available themes'),
                                   domain="zettwerk.ui",
                                   context=self.request)
-        add_link = u'''<a style="display: none;" id="ploneDownloadTheme"
-href="javascript:ploneDownloadTheme()">%s</a>''' % (add_link_text)
+        add_link = u'<a style="display: none;" id="ploneDownloadTheme" ' \
+            'href="javascript:ploneDownloadTheme()">%s</a>' % (add_link_text)
         name_div = u'<div id="themename">%s %s %s</div>' % (name_help,
                                                             name_input,
                                                             add_link)
@@ -78,8 +82,8 @@ href="javascript:ploneDownloadTheme()">%s</a>''' % (add_link_text)
                                 domain="zettwerk.ui",
                                 context=self.request)
         create_text = "%s %s" % (create_help, DOWNLOAD_HOME)
-        create_dl = u'''<br /><br /><a href="javascript:createDLDirectory()">
-%s</a>''' % (create_text)
+        create_dl = u'<br /><br />' \
+            '<a href="javascript:createDLDirectory()">%s</a>' % (create_text)
 
         if isAvailable():
             return u'%s %s' % (open_link, name_div)
@@ -96,6 +100,8 @@ class UIControlPanel(ControlPanelForm):
     form_fields['themeroller'].for_display = True
 
     label = _(u"Zettwerk UI Themer")
-    description = _('cp_description', u'''The settings are for enable or disable theming of
-elements. With the theme link, new themes are created or the current used one
-can be changed.''')
+    description = _('cp_description',
+                    u'The settings are for enable or disable theming of ' \
+                        u'elements. With the theme link, new themes are ' \
+                        u'created or the current used one can be changed.'
+                    )

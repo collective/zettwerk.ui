@@ -5,7 +5,7 @@ Changelog
 -----------------
 
 - added Spanish translation [macagua]
-- changed some imports suitable for Plone 4.1
+- changed some imports (for Plone 4.1 compatibility)
 - pep8 cleanups
 
 

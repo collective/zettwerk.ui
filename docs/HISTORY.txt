@@ -5,9 +5,12 @@ Changelog
 -----------------
 
 - added Spanish translation [macagua]
+- changed control panel gui and usage of download handling
+- added translatable strings for control panel javascripts
 - changed some imports (for Plone 4.1 compatibility)
 - pep8 cleanups
 - updated jquery.ui to 1.8.9
+
 
 0.28 (2011-01-11)
 -----------------

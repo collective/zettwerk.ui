@@ -90,27 +90,45 @@ var callThemeroller = function(hash) {
      window.location.href += '#'+hash;
     }
     if (!/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)) {
-        alert('Sorry, due to security restrictions, this tool only works in Firefox');
+        alert(sorry_only_firefox);
         return false;
     };
 
     wrapper(hash);
-    jq('#ploneDownloadTheme').show();
-};
-
-var ploneDownloadTheme = function() {
-    var hash = jquitr.trString;
-    var name = jq('#themename input').val();
-    if (!hash) {
-        alert("Nothing themed - please use themeroller");
-    }
-    if (!name || (name.match(/[a-z]*/) != name)) {
-        alert("You must enter a name containing only a-z characters");
-    } else {
-        document.location.href = 'portal_ui_tool/download?name='+name+'&hash='+encodeURIComponent(hash);
-    }
+    jq('label[for=form.download]').parent().show();
 };
 
 var createDLDirectory = function() {
     document.location.href = 'portal_ui_tool/createDLDirectory';
 };
+
+// change the submit handler to include the hash of the themeroller theme
+jq(document).ready(function() {
+    // hide the download input - its only shown when themeroller opens
+    jq('label[for=form.download]').parent().hide();
+
+    // make the form "multiSubmitable"
+    jq('input[name=form.actions.save]').addClass('allowMultiSubmit');
+
+    jq('input[name=form.actions.save]').click(function() {
+	var hash = jquitr.trString;
+	var download_name = jq('input[name=form.download]').val();
+
+	// a name was entered but no hash? thats not good!
+	// mhh - but this could not happen in a perfect world
+	if (download_name && !hash) {
+            alert(nothing_themed);
+	    return false;
+	}
+
+	// now the opposite: something was themed, but no download name given
+	if (!download_name && hash) {
+	    return window.confirm(name_missing);
+	}
+
+	// if both are given, use it
+	if (download_name && hash) {
+	    jq('input[name=form.themeroller]').val(hash);
+	}
+    });
+});

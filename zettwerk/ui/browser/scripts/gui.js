@@ -148,7 +148,6 @@ var enableForms = function($content) {
     if (!$content) {
 	var $content = jq('body');
     }
-
     $content.find('.optionsToggle').removeClass('optionsToggle');
     $content.find('input,select,textarea').addClass('ui-widget-content ui-corner-all ui-button-text hover');
     $content.find('input,select,textarea').wrap('<span class="ui-button-text-only"></span>').css({'padding-left': '4px', 'padding-right': '4px'});
@@ -240,6 +239,8 @@ var enableForms = function($content) {
     
     jq('#LSResult').css('z-index', '100');
     jq('#LSShadow').addClass('ui-corner-all ui-state-focus');
+
+    removeRule('.formHelp', 'color', 'color');
 }
 
 var enableDialogs = function() {

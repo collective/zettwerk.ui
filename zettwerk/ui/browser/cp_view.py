@@ -12,7 +12,8 @@ from zope.interface import implements
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFCore.utils import getToolByName
 
-from ..tool.tool import IUITool, IUIToolSettings, IUIToolTheme
+from ..tool.tool import IUITool, IUIToolSettings, IUIToolTheme, \
+    IUIToolThemeroller
 from zettwerk.ui import messageFactory as _
 from ..filesystem import isAvailable, DOWNLOAD_HOME
 
@@ -36,13 +37,18 @@ settings.label = _(u"Settings")
 theme = FormFieldsets(IUIToolTheme)
 theme.id = 'theme'
 theme.label = _(u"Theme")
-theme.description = _(u"theme_description_text", """New themes gets
+theme.description = _(u'Select a theme from your downloaded themes.')
+
+themeroller = FormFieldsets(IUIToolThemeroller)
+themeroller.id = 'themeroller'
+themeroller.label = _('Themeroller')
+themeroller.description = _(u"theme_description_text", """New themes gets
 downloaded to your server's filesystem. The target directory for storing them
 is given below. If the folder is not available - downloading is disabled. But
 this tool can create the directory. If you want to integrate a custom theme
 from themeroller do not use the themeroller's download link - that will
-download the theme to your local machine. You must use the link given
-below.""")
+download the theme to your local machine. You must use the save button below.
+""")
 
 
 class ThemerollerDisplayWidget(DisplayWidget):
@@ -65,43 +71,49 @@ class ThemerollerDisplayWidget(DisplayWidget):
                 context=self.request
             )
         )
-
-        name_help = translate(_(u"Name of the new theme"),
-                              domain='zettwerk.ui',
-                              context=self.request)
-        name_input = u'<input type="text" value="" />'
-        add_link_text = translate(_(u'Add theme to available themes'),
-                                  domain="zettwerk.ui",
-                                  context=self.request)
-        add_link = u'<a style="display: none;" id="ploneDownloadTheme" ' \
-            'href="javascript:ploneDownloadTheme()">%s</a>' % (add_link_text)
-        name_div = u'<div id="themename">%s %s %s</div>' % (name_help,
-                                                            name_input,
-                                                            add_link)
+        themeroller_input = '<input type="hidden" name="form.themeroller" ' \
+            'value="" />'
         create_help = translate(_(u"Create download directory at: "),
                                 domain="zettwerk.ui",
                                 context=self.request)
-        create_text = "%s %s" % (create_help, DOWNLOAD_HOME)
-        create_dl = u'<br /><br />' \
-            '<a href="javascript:createDLDirectory()">%s</a>' % (create_text)
+        create_text = "%s <br />%s" % (create_help, DOWNLOAD_HOME)
+        create_dl = u'<a class="createDLD" ' \
+            u'href="javascript:createDLDirectory()">%s</a>' % (create_text)
 
         if isAvailable():
-            return u'%s %s' % (open_link, name_div)
+            return '%s %s' % (open_link, themeroller_input)
         else:
-            return u'%s %s' % (open_link, create_dl)
+            return create_dl
 
 
 class UIControlPanel(ControlPanelForm):
     """ Build the ControlPanel form. """
 
-    form_fields = FormFieldsets(settings, theme)
+    form_fields = FormFieldsets(settings, theme, themeroller)
 
     form_fields['themeroller'].custom_widget = ThemerollerDisplayWidget
     form_fields['themeroller'].for_display = True
 
     label = _(u"Zettwerk UI Themer")
     description = _('cp_description',
-                    u'The settings are for enable or disable theming of ' \
-                        u'elements. With the theme link, new themes are ' \
-                        u'created or the current used one can be changed.'
+                    u'The settings are to enable or disable theming of ' \
+                        u'elements. With the theme link, you can choose ' \
+                        u'a theme from your existing themes. The ' \
+                        u'themeroller link is to create and change themes.'
                     )
+
+    def _on_save(self, data):
+        """ handle themeroller download """
+        name = data.get('download', '')
+        if name:
+            ## why is form.themeroller not available via data?
+            theme_hash = self.request.get('form.themeroller', '')
+            if theme_hash:
+                tool = self.context
+
+                ## also note, that tool.theme gets set via tool directly
+                tool.handleDownload(name, theme_hash)
+
+                ## and reset the values, they are not needed anymore
+                tool.download = ''
+                tool.themeroller = ''

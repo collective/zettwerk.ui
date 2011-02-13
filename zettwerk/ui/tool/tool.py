@@ -5,6 +5,7 @@ from persistent.mapping import PersistentMapping
 from zope.interface import Interface
 from zope.interface import implements
 from zope import schema
+from zope.i18n import translate
 
 from zettwerk.ui import messageFactory as _
 from css import FORMS, STATUS_MESSAGE, TABS, FOOTER, PERSONAL_TOOL
@@ -60,7 +61,19 @@ class IUIToolTheme(Interface):
                           required=False,
                           vocabulary="zettwerk.ui.ListThemesVocabulary")
 
-    themeroller = schema.TextLine(title=_("Themeroller"))
+
+class IUIToolThemeroller(Interface):
+    """ UITool interface for themeroller fields """
+
+    themeroller = schema.TextLine(
+        title=_("Themeroller")
+        )
+
+    download = schema.TextLine(
+        title=_("Download"),
+        required=False,
+        description=_("Name of the theme to download.")
+        )
 
 
 class IUIToolSettings(Interface):
@@ -111,7 +124,7 @@ class IUIToolSettings(Interface):
         )
 
 
-class IUITool(IUIToolSettings, IUIToolTheme):
+class IUITool(IUIToolSettings, IUIToolTheme, IUIToolThemeroller):
     """ Mixin Interface """
     pass
 
@@ -124,6 +137,7 @@ class UITool(UniqueObject, SimpleItem):
 
     ## implement the fields, given through the interfaces
     theme = ''
+    download = ''
     themeroller = ''
     enableStatusMessage = True
     enableDialogs = True
@@ -138,13 +152,33 @@ class UITool(UniqueObject, SimpleItem):
 
     themeHashes = None
 
+    def cp_js_translations(self):
+        """ return some translated js strings """
+        return u'var sorry_only_firefox = "%s";\n' \
+            u'var nothing_themed = "%s";\n' \
+            u'var name_missing = "%s";\n\n' % (
+            translate(_(u"Sorry, due to security restrictions, this tool " \
+                            u"only works in Firefox"),
+                      domain='zettwerk.ui',
+                      context=self.REQUEST),
+            translate(_(u"Download name given but nothing themed - please " \
+                            "use themeroller"),
+                      domain='zettwerk.ui',
+                      context=self.REQUEST),
+            translate(_(u"You opened themeroller, but no download name is " \
+                            u"given. Click ok to continue and ignore your " \
+                            u"changes or click cancel to enter a name."),
+                      domain='zettwerk.ui',
+                      context=self.REQUEST))
+
     def js(self, *args):
         """ Generate the js, suitable for the given settings. """
         content_type_header = 'application/x-javascript;charset=UTF-8'
         self.REQUEST.RESPONSE.setHeader('content-type',
                                         content_type_header)
 
-        result = ['jq(document).ready(function() {']
+        result = [self.cp_js_translations(),
+                  'jq(document).ready(function() {']
 
         if self.enableFonts:
             result.append('enableFonts();')
@@ -235,7 +269,7 @@ class UITool(UniqueObject, SimpleItem):
                                   directory=DOWNLOAD_HOME)
         self._redirectToCPView(_(u"Directory created"))
 
-    def download(self, name, hash):
+    def handleDownload(self, name, hash):
         """ Downsload a new theme, created by themeroller.
 
         @param name: string with the name of the new theme.
@@ -248,7 +282,6 @@ class UITool(UniqueObject, SimpleItem):
 
         storeBinaryFile(name, content)
         self._enableNewTheme(name, hash)
-        self._redirectToCPView(_(u"Theme downloaded"))
 
     def _enableNewTheme(self, name, hash):
         """ Extract the downloaded theme and set it as current theme. """

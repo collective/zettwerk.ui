@@ -7,7 +7,7 @@ Changelog
 - added Spanish translation [macagua]
 - changed some imports (for Plone 4.1 compatibility)
 - pep8 cleanups
-
+- updated jquery.ui to 1.8.9
 
 0.28 (2011-01-11)
 -----------------

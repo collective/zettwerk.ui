@@ -1,33 +1,3 @@
-// little helper to get width of hidden elements
-jQuery.fn.evenIfHidden = function( callback ) {
-    return this.each( function() {
-	var self = jq(this);
-	var styleBackups = [];
-	
-	var hiddenElements = self.parents().andSelf().filter(':hidden');
-	
-	if ( ! hiddenElements.length ) {
-	    callback( self );
-	    return true; //continue the loop
-	}
-	
-	hiddenElements.each( function() {
-	    var style = jq(this).attr('style');
-	    style = typeof style == 'undefined'? '': style;
-	    styleBackups.push( style );
-	    jq(this).attr( 'style', style + ' display: block !important;' );
-	});
-	
-	hiddenElements.eq(0).css( 'left', -10000 );
-	
-	callback(self);
-	
-	hiddenElements.each( function() {
-	    jq(this).attr( 'style', styleBackups.shift() );
-	});
-    });
-};
-
 var rulesToRemove = {};
 
 // this builds a data structure of all rules to remove

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zettwerk.ui\n"
 "POT-Creation-Date: 2011-02-13 10:21+0000\n"
-"PO-Revision-Date: 2011-02-03 09:31-0400\n"
+"PO-Revision-Date: 2011-02-15 15:45-0400\n"
 "Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
 "Language-Team: Spanish <plone-conosur@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,11 +25,11 @@ msgstr "Directorio creado"
 
 #: ./../tool/tool.py:73
 msgid "Download"
-msgstr ""
+msgstr "Descargar"
 
 #: ./../tool/tool.py:164
 msgid "Download name given but nothing themed - please use themeroller"
-msgstr ""
+msgstr "Nombre para descarga dado, pero a ningun temas aplicado - por favor, use themeroller"
 
 #: ./../tool/tool.py:92
 msgid "Enable dialogs"
@@ -73,7 +73,7 @@ msgstr "Habilitar estilo de pestañas"
 
 #: ./../tool/tool.py:75
 msgid "Name of the theme to download."
-msgstr ""
+msgstr "Nombre del tema a descargar."
 
 #: ./../browser/cp_view.py:69
 msgid "Open jquery.ui themeroller (only firefox)"
@@ -81,7 +81,7 @@ msgstr "Abrir el jquery.ui themeroller (solamente en Mozilla Firefox)"
 
 #: ./../browser/cp_view.py:40
 msgid "Select a theme from your downloaded themes."
-msgstr ""
+msgstr "Seleccione un tema desde sus temas descargados."
 
 #: ./../browser/cp_view.py:35
 msgid "Settings"
@@ -89,7 +89,7 @@ msgstr "Configuraciones"
 
 #: ./../tool/tool.py:160
 msgid "Sorry, due to security restrictions, this tool only works in Firefox"
-msgstr ""
+msgstr "Lo sentimos, debido a las restricciones de seguridad, esta herramienta sólo funciona en Mozilla Firefox"
 
 #: ./../browser/cp_view.py:39
 #: ./../tool/tool.py:60
@@ -143,7 +143,7 @@ msgstr "Usar las clases ui para los elementos de formulario "
 
 #: ./../tool/tool.py:168
 msgid "You opened themeroller, but no download name is given. Click ok to continue and ignore your changes or click cancel to enter a name."
-msgstr ""
+msgstr "Su themeroller esta abierto, pero no tiene nombre para descarga dado. Haga clic en el botón Aceptar para continuar y ignorar los cambios o haga clic en el botón Cancelar pata introducir un nombre."
 
 #: ./../browser/cp_view.py:97
 msgid "Zettwerk UI Themer"
@@ -152,10 +152,16 @@ msgstr "Zettwerk UI Themer"
 #. Default: "The settings are to enable or disable theming of elements. With the theme link, you can choose a theme from your existing themes. The themeroller link is to create and change themes."
 #: ./../browser/cp_view.py:98
 msgid "cp_description"
-msgstr ""
+msgstr "Las configuraciones son para activar o desactivar la tematización de los elementos. Con el enlace de tema, usted puede elegir un tema de sus temas ya existentes. El enlace themeroller es crear y cambiar los temas."
 
 #. Default: "New themes gets\ndownloaded to your server's filesystem. The target directory for storing them\nis given below. If the folder is not available - downloading is disabled. But\nthis tool can create the directory. If you want to integrate a custom theme\nfrom themeroller do not use the themeroller's download link - that will\ndownload the theme to your local machine. You must use the save button below.\n"
 #: ./../browser/cp_view.py:45
 msgid "theme_description_text"
 msgstr ""
+"Los nuevos temas se\n"
+"descarga al sistema de archivos de su servidor. El directorio de destino para el almacenamiento de ellos\n"
+"es que mostrado a continuación. Si la carpeta no está disponible - la descarga está desactivada. Pero\n"
+"esta herramienta puede crear el directorio. Si desea integrar un tema personalizado\n"
+"en themeroller no utilice el enlace de descarga de themeroller - el cual descargará\n"
+"el tema en su máquina local. Debe utilizar el botón \"Guardar\" a continuación."
 

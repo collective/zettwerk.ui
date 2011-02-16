@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.30 (unreleased)
+0.30 (2011-02-16)
 -----------------
 
 - added Spanish translation [macagua]

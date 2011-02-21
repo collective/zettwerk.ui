@@ -242,7 +242,7 @@ class UITool(UniqueObject, SimpleItem):
         portal_url = getToolByName(self, 'portal_url')
         url = '%s/%s/@@ui-controlpanel' % (portal_url(),
                                            self.getId())
-        self.REQUEST.RESPONSE.redirect(url)
+        return self.REQUEST.RESPONSE.redirect(url)
 
     def _rebuildThemeHashes(self):
         """ For edit existing themes, the hash is needed. They are stored

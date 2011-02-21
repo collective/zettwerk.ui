@@ -6,6 +6,7 @@ from zope.app.publisher.browser.directoryresource \
     import DirectoryResourceFactory
 from zope.app.publisher.browser.resourcemeta import allowed_names
 import logging
+import os
 
 
 def registerResourceDirectory(name, directory,
@@ -13,14 +14,15 @@ def registerResourceDirectory(name, directory,
                               permission='zope.Public'):
     """ This function registers a resource directory with global registry. """
 
-    logging.info('Registering %s as %s', directory, name)
+    if os.path.exists(directory):
+        logging.info('Registering %s as %s', directory, name)
 
-    if permission == 'zope.Public':
-        permission = CheckerPublic
+        if permission == 'zope.Public':
+            permission = CheckerPublic
 
-    checker = NamesChecker(allowed_names + ('__getitem__', 'get'),
-                           permission)
+        checker = NamesChecker(allowed_names + ('__getitem__', 'get'),
+                               permission)
 
-    factory = DirectoryResourceFactory(directory, checker, name)
-    gsm = getGlobalSiteManager()
-    gsm.registerAdapter(factory, (layer,), Interface, name)
+        factory = DirectoryResourceFactory(directory, checker, name)
+        gsm = getGlobalSiteManager()
+        gsm.registerAdapter(factory, (layer,), Interface, name)

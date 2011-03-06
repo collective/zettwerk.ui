@@ -279,7 +279,6 @@ class UITool(UniqueObject, SimpleItem):
         url = self._prepareUIDownloadUrl(hash)
         handler = urllib2.urlopen(url)
         content = handler.read()
-
         storeBinaryFile(name, content)
         self._enableNewTheme(name, hash)
 

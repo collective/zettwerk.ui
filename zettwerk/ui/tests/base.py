@@ -3,10 +3,13 @@ import zettwerk.ui
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import IntegrationTesting
+from plone.app.testing import FunctionalTesting
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 
 from plone.testing import z2
+
+from gocept.selenium.plonetesting.testing_plone import selenium_layer
 
 import os
 import Globals
@@ -73,4 +76,17 @@ ZETTWERK_UI_THEMES_FIXTURE = ZettwerkUIThemes()
 ZETTWERK_UI_THEMES_INTEGRATION_TESTING = IntegrationTesting(
     bases=(ZETTWERK_UI_THEMES_FIXTURE,),
     name="ZettwerkUIThemes:Integration"
+    )
+
+
+class ZettwerkUISelenium(PloneSandboxLayer):
+    """ """
+
+    defaultBases = (ZETTWERK_UI_THEMES_FIXTURE, selenium_layer)
+
+
+ZETTWERK_UI_SELENIUM_FIXTURE = ZettwerkUISelenium()
+ZETTWERK_UI_SELENIUM_TESTING = FunctionalTesting(
+    bases=(ZETTWERK_UI_SELENIUM_FIXTURE,),
+    name="ZettwerkUISelenium:Selenium"
     )

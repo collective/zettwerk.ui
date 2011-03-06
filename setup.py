@@ -29,7 +29,7 @@ setup(name='zettwerk.ui',
           # -*- Extra requirements: -*-
       ],
       extras_require={
-        'test': ['plone.app.testing']
+        'test': ['plone.app.testing', 'mocker', 'gocept.selenium']
         },
       entry_points="""
       # -*- Entry points: -*-

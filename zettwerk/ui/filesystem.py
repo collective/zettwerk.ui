@@ -5,6 +5,7 @@ import fileinput
 from stat import S_ISDIR, ST_MODE
 import Globals
 
+CSS_FILENAME = 'jquery-ui-.custom.css'
 INSTANCE_HOME = getattr(Globals, 'INSTANCE_HOME', None)
 if INSTANCE_HOME is not None:
     BUILDOUT_HOME = os.path.join(INSTANCE_HOME, '..', '..')
@@ -67,7 +68,6 @@ def getDirectoriesOfDownloadHome():
 
 
 def getThemeHashOfCustomCSS(theme_dir):
-    CSS_FILENAME = 'jquery-ui-.custom.css'
     filepath = os.path.join(DOWNLOAD_HOME,
                             theme_dir,
                             CSS_FILENAME)

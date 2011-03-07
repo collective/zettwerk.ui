@@ -14,6 +14,8 @@ In addition you will get some of the cool jquery.ui widgets (for example the dia
 
 Also check out zettwerk.fullcalender for integration of a jquery calender add-on into Plone 4 - which will also use the themeroller customizations.
 
+Feel free to contact us for feedback.
+
 Skins vs Themes
 ===============
 
@@ -22,7 +24,12 @@ zettwerk.ui is designed to be independet of any particular skin and it is not a 
 Installation
 ============
 
-Add zettwerk.ui to your buildout eggs. After running buildout and starting the instance, you can install Zettwerk UI Themer via portal_quickinstaller to your plone instance. zettwerk.ui requires Plone 4 (tested with beta 4).
+Add zettwerk.ui to your buildout eggs::
+
+  eggs = ..
+         zettwerk.ui
+
+After running buildout and starting the instance, you can install Zettwerk UI Themer via portal_quickinstaller to your plone instance. zettwerk.ui requires Plone 4 (tested with 4.0.x and 4.1.x).
 
 Usage
 =====

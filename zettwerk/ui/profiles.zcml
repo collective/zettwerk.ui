@@ -13,7 +13,7 @@
 
   <genericsetup:registerProfile
       name="uninstall"
-      title="Zettwerk UI Themer"
+      title="Zettwerk UI Themer - Uninstall"
       directory="profiles/uninstall"
       description="Removes Zettwerk UI Themer"
       provides="Products.GenericSetup.interfaces.EXTENSION"

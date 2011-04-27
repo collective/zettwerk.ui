@@ -270,10 +270,10 @@ class UITool(UniqueObject, SimpleItem):
         self._redirectToCPView(_(u"Directory created"))
 
     def handleDownload(self, name, hash):
-        """ Downsload a new theme, created by themeroller.
+        """ Download a new theme, created by themeroller.
 
         @param name: string with the name of the new theme.
-        @param hash: themeroller hast, with theme settings.
+        @param hash: themeroller hash, with theme settings.
         """
 
         url = self._prepareUIDownloadUrl(hash)
@@ -284,8 +284,9 @@ class UITool(UniqueObject, SimpleItem):
 
     def _enableNewTheme(self, name, hash):
         """ Extract the downloaded theme and set it as current theme. """
-
-        extractZipFile(name)
+        extractZipFile(name) # XXX this may fail, so happened here with theme
+                             # "Blitzer" a zipfile.BadZipFile was raised 
+                             # a-- Jensens 
         if self.themeHashes is None:
             self.themeHashes = PersistentMapping()
 

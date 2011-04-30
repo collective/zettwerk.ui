@@ -1,3 +1,4 @@
+from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import UniqueObject, getToolByName
 from OFS.SimpleItem import SimpleItem
 from persistent.mapping import PersistentMapping
@@ -12,6 +13,7 @@ from css import FORMS, STATUS_MESSAGE, TABS, FOOTER, PERSONAL_TOOL
 
 import urllib2
 from urllib import urlencode
+import zipfile
 
 from ..filesystem import extractZipFile, storeBinaryFile, \
     createDownloadFolder, getDirectoriesOfDownloadHome, \
@@ -284,9 +286,20 @@ class UITool(UniqueObject, SimpleItem):
 
     def _enableNewTheme(self, name, hash):
         """ Extract the downloaded theme and set it as current theme. """
-        extractZipFile(name) # XXX this may fail, so happened here with theme
-                             # "Blitzer" a zipfile.BadZipFile was raised 
-                             # a-- Jensens 
+        try:
+            extractZipFile(name)
+        except zipfile.BadZipfile:
+            ## This might fail as mentioned by Jensens
+            ## mostly caused by the themeroller webservice
+            IStatusMessage(self.REQUEST) \
+                .addStatusMessage(
+                _(u'The downloaded zipfile is corrupt. This could mean ' \
+                      u'that the themeroller webservice has problems. The ' \
+                      u'common fix for this is, to wait a day or two and ' \
+                      'try it again.'),
+                "error")
+            return
+
         if self.themeHashes is None:
             self.themeHashes = PersistentMapping()
 

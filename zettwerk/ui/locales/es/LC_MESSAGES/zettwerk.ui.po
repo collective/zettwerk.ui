@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: zettwerk.ui\n"
-"POT-Creation-Date: 2011-02-13 10:21+0000\n"
+"POT-Creation-Date: 2011-04-30 07:18+0000\n"
 "PO-Revision-Date: 2011-02-15 15:45-0400\n"
 "Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
 "Language-Team: Spanish <plone-conosur@lists.plone.org>\n"
@@ -19,59 +19,59 @@ msgstr ""
 msgid "Create download directory at: "
 msgstr "Crear descarga en el directorio:"
 
-#: ./../tool/tool.py:270
+#: ./../tool/tool.py:272
 msgid "Directory created"
 msgstr "Directorio creado"
 
-#: ./../tool/tool.py:73
+#: ./../tool/tool.py:75
 msgid "Download"
 msgstr "Descargar"
 
-#: ./../tool/tool.py:164
+#: ./../tool/tool.py:166
 msgid "Download name given but nothing themed - please use themeroller"
 msgstr "Nombre para descarga dado, pero a ningun temas aplicado - por favor, use themeroller"
 
-#: ./../tool/tool.py:92
+#: ./../tool/tool.py:94
 msgid "Enable dialogs"
 msgstr "Habilitar diálogos"
 
-#: ./../tool/tool.py:114
+#: ./../tool/tool.py:116
 msgid "Enable edit bar styling"
 msgstr "Habilitar estilo de barra de edición"
 
-#: ./../tool/tool.py:83
+#: ./../tool/tool.py:85
 msgid "Enable fonts styling"
 msgstr "Habilitar estilo de fuentes"
 
-#: ./../tool/tool.py:122
+#: ./../tool/tool.py:124
 msgid "Enable footer styling"
 msgstr "Habilitar estilo de pie de página"
 
-#: ./../tool/tool.py:118
+#: ./../tool/tool.py:120
 msgid "Enable forms"
 msgstr "Habilitar formularios"
 
-#: ./../tool/tool.py:87
+#: ./../tool/tool.py:89
 msgid "Enable global-tabs styling"
 msgstr "Habilitar estilo de pestañas globales"
 
-#: ./../tool/tool.py:100
+#: ./../tool/tool.py:102
 msgid "Enable personal-tool"
 msgstr "Habilitar herramienta personal"
 
-#: ./../tool/tool.py:105
+#: ./../tool/tool.py:107
 msgid "Enable portelts styling"
 msgstr "Habilitar estilo de portelts"
 
-#: ./../tool/tool.py:96
+#: ./../tool/tool.py:98
 msgid "Enable status messages"
 msgstr "Habilitar mensajes de estado"
 
-#: ./../tool/tool.py:109
+#: ./../tool/tool.py:111
 msgid "Enable tabs styling"
 msgstr "Habilitar estilo de pestañas"
 
-#: ./../tool/tool.py:75
+#: ./../tool/tool.py:77
 msgid "Name of the theme to download."
 msgstr "Nombre del tema a descargar."
 
@@ -87,61 +87,65 @@ msgstr "Seleccione un tema desde sus temas descargados."
 msgid "Settings"
 msgstr "Configuraciones"
 
-#: ./../tool/tool.py:160
+#: ./../tool/tool.py:162
 msgid "Sorry, due to security restrictions, this tool only works in Firefox"
 msgstr "Lo sentimos, debido a las restricciones de seguridad, esta herramienta sólo funciona en Mozilla Firefox"
 
+#: ./../tool/tool.py:296
+msgid "The downloaded zipfile is corrupt. This could mean that the themeroller webservice has problems. The common fix for this is, to wait a day or two and try it again."
+msgstr ""
+
 #: ./../browser/cp_view.py:39
-#: ./../tool/tool.py:60
+#: ./../tool/tool.py:62
 msgid "Theme"
 msgstr "Tema"
 
 #: ./../browser/cp_view.py:44
-#: ./../tool/tool.py:69
+#: ./../tool/tool.py:71
 msgid "Themeroller"
 msgstr "Themeroller"
 
-#: ./../tool/tool.py:93
+#: ./../tool/tool.py:95
 msgid "This applies dialog() to a.link-overlay links"
 msgstr "Esto aplica el método dialog() a los elementos HTML a.link-overlay "
 
-#: ./../tool/tool.py:115
+#: ./../tool/tool.py:117
 msgid "Use jquery ui's classes for edit bar styling"
 msgstr "Usar las clases jquery ui para los estilos de edición"
 
-#: ./../tool/tool.py:123
+#: ./../tool/tool.py:125
 msgid "Use jquery ui's classes for footer styling"
 msgstr "Usar las clases jquery ui para los estilos de pie de página"
 
-#: ./../tool/tool.py:84
+#: ./../tool/tool.py:86
 msgid "Use jquery ui's font class for global font styling"
 msgstr "Usar las clases de fuente de letra jquery ui para los estilos globales de fuente de letra"
 
-#: ./../tool/tool.py:97
+#: ./../tool/tool.py:99
 msgid "Use jquery ui's status message styling"
 msgstr "Usar las clases jquery ui para los estilos de mensajes de estado "
 
-#: ./../tool/tool.py:88
+#: ./../tool/tool.py:90
 msgid "Use jquery ui's tabs classes for global-tab styling (this do not use ui's tabs())"
 msgstr "Usar las clases pestañas de jquery ui para los estilos de pestañas globales (esto no usa las pestañas ui())"
 
-#: ./../tool/tool.py:106
+#: ./../tool/tool.py:108
 msgid "Use jquery ui's tabs classes for portlet styling"
 msgstr "Usar las clases pestañas de jquery ui para los estilos de portlet"
 
-#: ./../tool/tool.py:110
+#: ./../tool/tool.py:112
 msgid "Use jquery ui's tabs classes for tab styling (this do not use ui's tabs())"
 msgstr "Usar las clases pestañas de jquery ui para los estilos de pestaña (esto no usa las pestañas ui())"
 
-#: ./../tool/tool.py:101
+#: ./../tool/tool.py:103
 msgid "Use jquery ui's widget class for personal-tool styling"
 msgstr "Usar el widget de la clase jquery ui para los estilos de herramienta personal"
 
-#: ./../tool/tool.py:119
+#: ./../tool/tool.py:121
 msgid "Use ui css classes for form elements"
 msgstr "Usar las clases ui para los elementos de formulario "
 
-#: ./../tool/tool.py:168
+#: ./../tool/tool.py:170
 msgid "You opened themeroller, but no download name is given. Click ok to continue and ignore your changes or click cancel to enter a name."
 msgstr "Su themeroller esta abierto, pero no tiene nombre para descarga dado. Haga clic en el botón Aceptar para continuar y ignorar los cambios o haga clic en el botón Cancelar pata introducir un nombre."
 

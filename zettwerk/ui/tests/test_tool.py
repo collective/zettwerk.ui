@@ -236,4 +236,38 @@ class TestTooltWithThemess(unittest.TestCase):
         with self.mocker:
             tool.handleDownload('tester', test_hash)
             ## this results in an enabled theme called 'tester'
-            tool.theme = 'tester'
+            self.assertEquals(tool.theme, 'tester')
+
+    def test_handleDownload_corrupt(self):
+        portal = self.layer['portal']
+        tool = getToolByName(portal, 'portal_ui_tool')
+
+        ## pre check, that there is no theme enabled
+        self.assertEquals(tool.theme, '')
+
+        ## we need a mocker to fake the download
+        self.mocker = Mocker()
+        self.fake_urllib2 = self.mocker.replace(urllib2)
+
+        ## an url to download
+        test_hash = 'hash'
+        url = tool._prepareUIDownloadUrl(test_hash)
+
+        ## and a temporary "corrupt" zipfile to test
+        s = StringIO()
+
+        ## setup the fake
+        self.fake_urllib2.urlopen(url)
+        self.mocker.result(s)
+
+        ## and test it
+        with self.mocker:
+            tool.handleDownload('tester', test_hash)
+            ## extraction should be failed, so the theme should not be changed
+            self.assertEquals(tool.theme, '')
+
+            ## and the error status message should be set
+            from Products.statusmessages.interfaces import IStatusMessage
+            messages = IStatusMessage(self.layer['request']).show()
+            self.assertEquals(len(messages), 1)
+            self.assertEquals(messages[0].type, u'error')

@@ -1,10 +1,10 @@
 Changelog
 =========
 
-0.33 (unreleased)
+0.33 (2011-05-06)
 -----------------
 
-- Nothing changed yet.
+- do not show the "enable cookie" status message, it it is not visible'
 
 
 0.32 (2011-04-30)

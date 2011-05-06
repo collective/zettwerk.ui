@@ -127,7 +127,7 @@ var enablePersonalTool = function() {
 };
 
 var enableStatusMessage = function() {
-    var $status = jq('dl.portalMessage.info,dl.portalMessage.warning,dl.portalMessage.error');
+    var $status = jq('dl.portalMessage.info:visible,dl.portalMessage.warning:visible,dl.portalMessage.error:visible');
     $status.each(function() {
 		     if (jq(this).attr('id') != 'kssPortalMessage') {
 			 jq(this).hide(); // hide the plone message
@@ -151,7 +151,7 @@ var enableForms = function($content) {
     $content.find('.optionsToggle').removeClass('optionsToggle');
     $content.find('input,select,textarea').addClass('ui-widget-content ui-corner-all ui-button-text hover');
     $content.find('input,select,textarea').wrap('<span class="ui-button-text-only"></span>').css({'padding-left': '4px', 'padding-right': '4px'});
-    
+
     $content.find('select, textarea, input:text, input:password').bind({
 	focusin: function() {
             jq(this).addClass('ui-state-focus');
@@ -202,7 +202,7 @@ var enableForms = function($content) {
 		}
 		// disable other radios of this group
 		var radio_name = jq(this).parent().find('input:radio').attr('name');
-		var radio_value = jq(this).parent().find('input:radio').val(); 
+		var radio_value = jq(this).parent().find('input:radio').val();
 		$content.find('input:radio[name='+radio_name+']').each(function() {
 		    if (jq(this).val() != radio_value && jq(this).attr('checked')) {
 			jq(this).parent().find('label').parent('span').toggleClass("ui-state-active");
@@ -236,7 +236,7 @@ var enableForms = function($content) {
     // and livesearch
     removeRule('input.inputLabelActive', 'color', 'color');
     removeRule('#livesearchLegend', 'background-color', 'backgroundColor');
-    
+
     jq('#LSResult').css('z-index', '100');
     jq('#LSShadow').addClass('ui-corner-all ui-state-focus');
 
@@ -269,7 +269,7 @@ var showDialogContent = function(data, title) {
         jq(this).hide();
     });
     jq('<div id="dialogContainer" title="'+title+'"></div>').appendTo('body');
-    
+
     // search for submit buttons and use them as dialog buttons
     var buttons = {};
     $content.find('input[type=submit]').each(function() {
@@ -279,7 +279,7 @@ var showDialogContent = function(data, title) {
         };
         jq(this).hide();
     });
-    
+
     // bring up the dialog
     $content.appendTo('#dialogContainer');
     if (forms_are_enabled) {
@@ -421,7 +421,7 @@ var enableEditBar = function() {
     removeRule('#contentActionMenus', 'background-color', 'backgroundColor');
     removeRule('#contentActionMenus', '-moz-border-radius-topright', 'MozBorderRadiusTopright');
     removeRule('#contentActionMenus', 'border-top-right-radius', 'borderTopRightRadius');
-                
+
     removeRule('#contentActionMenus dl.actionMenu a, #contentActionMenus dl.actionMenu.activated dd', 'background-color', 'backgroundColor');
     removeRule('#contentActionMenus dl.actionMenu a, #contentActionMenus dl.actionMenu.activated dd', 'color', 'color');
 

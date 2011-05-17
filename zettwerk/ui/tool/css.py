@@ -44,6 +44,13 @@ TABS = """
 .ui-tabs-nav {
     margin-left: 0px !important;
 }
+#ui-globalnav li {
+    zoom: 1;
+    *display: inline;
+}
+#portal-searchbox {
+    overflow: hidden;
+}
 """
 
 FOOTER = """

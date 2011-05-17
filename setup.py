@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.33'
+version = '0.34dev'
 
 setup(name='zettwerk.ui',
       version=version,

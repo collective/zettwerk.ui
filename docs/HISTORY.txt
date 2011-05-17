@@ -1,10 +1,10 @@
 Changelog
 =========
 
-0.34 (unreleased)
+0.34 (2011-05-17)
 -----------------
 
-- Nothing changed yet.
+- IE7 Fix for global tabs
 
 
 0.33 (2011-05-06)

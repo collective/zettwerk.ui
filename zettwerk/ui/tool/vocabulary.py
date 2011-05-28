@@ -15,7 +15,12 @@ class ListThemesVocabulary(object):
 
     def __call__(self, context):
         """ themes are just subfolders of DOWNLOAD_HOME """
-        themes = [SimpleTerm(t) for t in getDirectoriesOfDownloadHome()]
+        dirs = getDirectoriesOfDownloadHome()
+        ## this might happen if someone customizes it
+        if 'sunburst' not in dirs:
+            dirs += ['sunburst']
+
+        themes = [SimpleTerm(t) for t in sorted(dirs)]
         return SimpleVocabulary(themes)
 
 ListThemesVocabularyFactory = ListThemesVocabulary()

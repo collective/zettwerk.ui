@@ -158,7 +158,9 @@ class UITool(UniqueObject, SimpleItem):
         """ return some translated js strings """
         return u'var sorry_only_firefox = "%s";\n' \
             u'var nothing_themed = "%s";\n' \
-            u'var name_missing = "%s";\n\n' % (
+            u'var name_missing = "%s";\n' \
+            u'var no_sunburst_name = "%s";\n' \
+            u'var no_special_chars = "%s";\n\n' % (
             translate(_(u"Sorry, due to security restrictions, this tool " \
                             u"only works in Firefox"),
                       domain='zettwerk.ui',
@@ -171,7 +173,14 @@ class UITool(UniqueObject, SimpleItem):
                             u"given. Click ok to continue and ignore your " \
                             u"changes or click cancel to enter a name."),
                       domain='zettwerk.ui',
-                      context=self.REQUEST))
+                      context=self.REQUEST),
+            translate(_(u"Sorry, sunburst is an invalid name"),
+                      domain='zettwerk.ui',
+                      context=self.REQUEST),
+            translate(_(u"Please use no special characters."),
+                      domain='zettwerk.ui',
+                      context=self.REQUEST),
+            )
 
     def js(self, *args):
         """ Generate the js, suitable for the given settings. """
@@ -217,11 +226,18 @@ class UITool(UniqueObject, SimpleItem):
         result = ""
 
         if self.theme:
-            resource_base = '++resource++zettwerk.ui.themes'
-            result += '@import "%s/%s/jquery-ui-.custom.css";' % (
-                resource_base,
-                self.theme
-                )
+            ## the sunburst resource in portal_css is disabled
+            ## cause enable/disabling resources in service mode
+            ## seems not to work as i expect
+            if self.theme == u'sunburst':
+                result += '@import "++resource++jquery-ui-themes/' \
+                    'sunburst/jqueryui.css";'
+            else:
+                resource_base = '++resource++zettwerk.ui.themes'
+                result += '@import "%s/%s/jquery-ui-.custom.css";' % (
+                    resource_base,
+                    self.theme
+                    )
 
         if self.enableForms:
             result += FORMS
@@ -263,6 +279,15 @@ class UITool(UniqueObject, SimpleItem):
             theme_hash = getThemeHashOfCustomCSS(theme_dir)
             if theme_hash:
                 self.themeHashes.update({theme_dir: theme_hash})
+        self._handleSunburst()
+
+    def _handleSunburst(self):
+        """" since we support collective.js.jqueryui, it would make
+        sense to add the provided sunburst theme as a theme, too. """
+        ## no, i don't want to pep8-ify this string
+        self.themeHashes.update(
+            {'sunburst': '?ffDefault=%20Arial,FreeSans,sans-serif&fwDefault=normal&fsDefault=0.9em&cornerRadius=5px&bgColorHeader=dddddd&bgTextureHeader=01_flat.png&bgImgOpacityHeader=75&borderColorHeader=cccccc&fcHeader=444444&iconColorHeader=205c90&bgColorContent=ffffff&bgTextureContent=01_flat.png&bgImgOpacityContent=100&borderColorContent=cccccc&fcContent=444444&iconColorContent=205c90&bgColorDefault=205c90&bgTextureDefault=01_flat.png&bgImgOpacityDefault=45&borderColorDefault=cccccc&fcDefault=ffffff&iconColorDefault=ffffff&bgColorHover=dddddd&bgTextureHover=01_flat.png&bgImgOpacityHover=75&borderColorHover=448dae&fcHover=444444&iconColorHover=444444&bgColorActive=75ad0a&bgTextureActive=01_flat.png&bgImgOpacityActive=50&borderColorActive=cccccc&fcActive=ffffff&iconColorActive=ffffff&bgColorHighlight=ffdd77&bgTextureHighlight=01_flat.png&bgImgOpacityHighlight=55&borderColorHighlight=dd8800&fcHighlight=000000&iconColorHighlight=dd8800&bgColorError=ffddcc&bgTextureError=01_flat.png&bgImgOpacityError=45&borderColorError=dd0000&fcError=000000&iconColorError=dd0000&bgColorOverlay=aaaaaa&bgTextureOverlay=01_flat.png&bgImgOpacityOverlay=75&opacityOverlay=30&bgColorShadow=999999&bgTextureShadow=01_flat.png&bgImgOpacityShadow=55&opacityShadow=45&thicknessShadow=0px&offsetTopShadow=5px&offsetLeftShadow=5px&cornerRadiusShadow=5px'}
+            )
 
     def createDLDirectory(self):
         """ Create the storage and register the resource"""

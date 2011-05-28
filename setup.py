@@ -27,6 +27,7 @@ setup(name='zettwerk.ui',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'collective.js.jqueryui>1.8.13'
       ],
       extras_require={
         'test': ['plone.app.testing', 'mocker', 'gocept.selenium']

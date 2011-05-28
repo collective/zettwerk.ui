@@ -1,4 +1,5 @@
 import zettwerk.ui
+import collective.js.jqueryui
 
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import PLONE_FIXTURE
@@ -23,7 +24,9 @@ class ZettwerkUI(PloneSandboxLayer):
 
     def setUpZope(self, app, configurationContext):
         self.loadZCML(package=zettwerk.ui)
+        self.loadZCML(package=collective.js.jqueryui)
         z2.installProduct(app, 'zettwerk.ui')
+        z2.installProduct(app, 'collective.js.jqueryui')
 
     def setUpPloneSite(self, portal):
         self.applyProfile(portal, 'zettwerk.ui:default')

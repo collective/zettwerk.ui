@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: zettwerk.ui\n"
-"POT-Creation-Date: 2011-04-30 07:18+0000\n"
+"POT-Creation-Date: 2011-05-28 14:45+0000\n"
 "PO-Revision-Date: 2010-05-01 07:32+0000\n"
 "Last-Translator: Joerg Kubaile <jk@zettwerk.com>\n"
 "Language-Team: zettwerk <team@zettwerk.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Create download directory at: "
 msgstr "Erstelle den Download Ordner an Stelle:"
 
-#: ./../tool/tool.py:272
+#: ./../tool/tool.py:290
 msgid "Directory created"
 msgstr "Ordner erstellt"
 
@@ -26,7 +26,7 @@ msgstr "Ordner erstellt"
 msgid "Download"
 msgstr "Herunterladen"
 
-#: ./../tool/tool.py:166
+#: ./../tool/tool.py:168
 msgid "Download name given but nothing themed - please use themeroller"
 msgstr "Ein Name wurde angegeben, aber nichts angepasst - verwenden Sie hierzu den Themeroller Link."
 
@@ -78,6 +78,10 @@ msgstr "Name des Themas zum Herunterladen."
 msgid "Open jquery.ui themeroller (only firefox)"
 msgstr "Öffne jquery.ui themeroller (nur im Firefox)"
 
+#: ./../tool/tool.py:180
+msgid "Please use no special characters."
+msgstr "Bitte keine Sonderzeichen verwenden."
+
 #: ./../browser/cp_view.py:40
 msgid "Select a theme from your downloaded themes."
 msgstr "Ein Thema aus den heruntergeladenen auswählen."
@@ -86,11 +90,15 @@ msgstr "Ein Thema aus den heruntergeladenen auswählen."
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: ./../tool/tool.py:162
+#: ./../tool/tool.py:164
 msgid "Sorry, due to security restrictions, this tool only works in Firefox"
 msgstr "Entschulding, wegen Sicherheits-Beschränkungen funktioniert dies nur im Firefox"
 
-#: ./../tool/tool.py:296
+#: ./../tool/tool.py:177
+msgid "Sorry, sunburst is an invalid name"
+msgstr "sunburst ist ein reservierter Name der nicht verwendet werden darf."
+
+#: ./../tool/tool.py:314
 msgid "The downloaded zipfile is corrupt. This could mean that the themeroller webservice has problems. The common fix for this is, to wait a day or two and try it again."
 msgstr "Das heruntergeladene Archiv ist fehlerhaft. Dies ist meistens durch Probleme beim Themeroller Dienst verursacht. Um das Problem zu beheben genügt es in der Regel ein oder zwei Tage zu warten und es dann nochmal zu probieren."
 
@@ -144,7 +152,7 @@ msgstr "Die jquery ui Klassen werden auf die persönlichen Einstellungen angewan
 msgid "Use ui css classes for form elements"
 msgstr "Die jquery ui Klassen werden auf Formulare angewandt"
 
-#: ./../tool/tool.py:170
+#: ./../tool/tool.py:172
 msgid "You opened themeroller, but no download name is given. Click ok to continue and ignore your changes or click cancel to enter a name."
 msgstr "Themereoller wurde geöffnet, aber kein Name zum Herunterladen angegeben. Klicken Sie ok um die Änderungen zu verwerfen, oder abbrechen um einen Namen anzugeben."
 

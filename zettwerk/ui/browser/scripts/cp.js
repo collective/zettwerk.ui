@@ -48,7 +48,7 @@ var wrapper = function(hash) {
 		.css('cursor', 'move')
 		.fadeIn();
 	}
-	reloadCSS();		
+	reloadCSS();
     };
     //close dev tool
     var closeThemeRoller = function () {
@@ -124,6 +124,17 @@ jq(document).ready(function() {
 	// now the opposite: something was themed, but no download name given
 	if (!download_name && hash) {
 	    return window.confirm(name_missing);
+	}
+
+	// name validation
+	if (download_name == 'sunburst') {
+	    alert(no_sunburst_name);
+	    return false;
+	}
+
+	if (download_name.match(/[a-z|0-9|_|-]*/) != download_name) {
+	    alert(no_special_chars);
+	    return false;
 	}
 
 	// if both are given, use it

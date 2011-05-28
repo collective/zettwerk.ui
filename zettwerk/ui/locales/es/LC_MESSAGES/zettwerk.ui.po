@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: zettwerk.ui\n"
-"POT-Creation-Date: 2011-04-30 07:18+0000\n"
+"POT-Creation-Date: 2011-05-28 14:45+0000\n"
 "PO-Revision-Date: 2011-02-15 15:45-0400\n"
 "Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
 "Language-Team: Spanish <plone-conosur@lists.plone.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Create download directory at: "
 msgstr "Crear descarga en el directorio:"
 
-#: ./../tool/tool.py:272
+#: ./../tool/tool.py:290
 msgid "Directory created"
 msgstr "Directorio creado"
 
@@ -27,7 +27,7 @@ msgstr "Directorio creado"
 msgid "Download"
 msgstr "Descargar"
 
-#: ./../tool/tool.py:166
+#: ./../tool/tool.py:168
 msgid "Download name given but nothing themed - please use themeroller"
 msgstr "Nombre para descarga dado, pero a ningun temas aplicado - por favor, use themeroller"
 
@@ -79,6 +79,10 @@ msgstr "Nombre del tema a descargar."
 msgid "Open jquery.ui themeroller (only firefox)"
 msgstr "Abrir el jquery.ui themeroller (solamente en Mozilla Firefox)"
 
+#: ./../tool/tool.py:180
+msgid "Please use no special characters."
+msgstr ""
+
 #: ./../browser/cp_view.py:40
 msgid "Select a theme from your downloaded themes."
 msgstr "Seleccione un tema desde sus temas descargados."
@@ -87,11 +91,15 @@ msgstr "Seleccione un tema desde sus temas descargados."
 msgid "Settings"
 msgstr "Configuraciones"
 
-#: ./../tool/tool.py:162
+#: ./../tool/tool.py:164
 msgid "Sorry, due to security restrictions, this tool only works in Firefox"
 msgstr "Lo sentimos, debido a las restricciones de seguridad, esta herramienta sólo funciona en Mozilla Firefox"
 
-#: ./../tool/tool.py:296
+#: ./../tool/tool.py:177
+msgid "Sorry, sunburst is an invalid name"
+msgstr ""
+
+#: ./../tool/tool.py:314
 msgid "The downloaded zipfile is corrupt. This could mean that the themeroller webservice has problems. The common fix for this is, to wait a day or two and try it again."
 msgstr ""
 
@@ -145,7 +153,7 @@ msgstr "Usar el widget de la clase jquery ui para los estilos de herramienta per
 msgid "Use ui css classes for form elements"
 msgstr "Usar las clases ui para los elementos de formulario "
 
-#: ./../tool/tool.py:170
+#: ./../tool/tool.py:172
 msgid "You opened themeroller, but no download name is given. Click ok to continue and ignore your changes or click cancel to enter a name."
 msgstr "Su themeroller esta abierto, pero no tiene nombre para descarga dado. Haga clic en el botón Aceptar para continuar y ignorar los cambios o haga clic en el botón Cancelar pata introducir un nombre."
 

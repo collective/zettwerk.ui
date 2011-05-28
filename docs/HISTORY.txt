@@ -1,10 +1,15 @@
 Changelog
 =========
 
-0.40 (unreleased)
+0.40 (2011-05-28)
 -----------------
 
-- Nothing changed yet.
+- removed own jquery.ui integration and use collective.js.jqueryui (reinstall via quickinstall required!)
+- collective.js.jqueryui's sunburst theme integrated with special resource handling
+- re-added validation of theme name characters
+- made the font size of the default start theme a little smaller
+- udpated pot file and german translations
+- sorting of theme names
 
 
 0.34 (2011-05-17)

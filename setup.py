@@ -5,7 +5,7 @@ version = '1.0rc1dev'
 
 setup(name='zettwerk.ui',
       version=version,
-      description="Adding jquery.ui and themeroller to plone 4 " \
+      description="Adding jquery.ui's themeroller to plone 4 " \
           "for easy theme customization.",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
@@ -15,7 +15,7 @@ setup(name='zettwerk.ui',
         "Framework :: Plone",
         "Programming Language :: Python",
         ],
-      keywords='plone, theme, themeroller',
+      keywords='plone, theme, jquery, jquery.ui, themeroller',
       author='zettwerk GmbH',
       author_email='jk@zettwerk.com',
       url='http://zettwerk.com',

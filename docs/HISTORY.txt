@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0rc1 (unreleased)
+1.0rc1 (2011-06-12)
 -------------------
 
 - Major rewrite to apply manipulations via plone.app.theming/diazo

@@ -9,7 +9,6 @@ from zope import schema
 from zope.i18n import translate
 
 from zettwerk.ui import messageFactory as _
-from css import FORMS, STATUS_MESSAGE, TABS, FOOTER, PERSONAL_TOOL
 
 import urllib2
 from urllib import urlencode
@@ -78,55 +77,7 @@ class IUIToolThemeroller(Interface):
         )
 
 
-class IUIToolSettings(Interface):
-    """ UITool interface for setting fields """
-
-    enableFonts = schema.Bool(
-        title=_(u"Enable fonts styling"),
-        description=_(u"Use jquery ui's font class for global font styling")
-        )
-    enableGlobalTabs = schema.Bool(
-        title=_(u"Enable global-tabs styling"),
-        description=_(u"Use jquery ui's tabs classes for global-tab " \
-                          "styling (this do not use ui's tabs())")
-        )
-    enableDialogs = schema.Bool(
-        title=_(u"Enable dialogs"),
-        description=_(u"This applies dialog() to a.link-overlay links")
-        )
-    enableStatusMessage = schema.Bool(
-        title=_(u"Enable status messages"),
-        description=_(u"Use jquery ui's status message styling")
-        )
-    enablePersonalTool = schema.Bool(
-        title=_(u"Enable personal-tool"),
-        description=_(u"Use jquery ui's widget class for personal-tool " \
-                          "styling")
-        )
-    enablePortlets = schema.Bool(
-        title=_(u"Enable portelts styling"),
-        description=_(u"Use jquery ui's tabs classes for portlet styling")
-        )
-    enableTabs = schema.Bool(
-        title=_(u"Enable tabs styling"),
-        description=_(u"Use jquery ui's tabs classes for tab styling " \
-                          "(this do not use ui's tabs())")
-        )
-    enableEditBar = schema.Bool(
-        title=_(u"Enable edit bar styling"),
-        description=_(u"Use jquery ui's classes for edit bar styling")
-        )
-    enableForms = schema.Bool(
-        title=_(u"Enable forms"),
-        description=_(u"Use ui css classes for form elements")
-        )
-    enableFooter = schema.Bool(
-        title=_(u"Enable footer styling"),
-        description=_(u"Use jquery ui's classes for footer styling")
-        )
-
-
-class IUITool(IUIToolSettings, IUIToolTheme, IUIToolThemeroller):
+class IUITool(IUIToolTheme, IUIToolThemeroller):
     """ Mixin Interface """
     pass
 
@@ -141,17 +92,6 @@ class UITool(UniqueObject, SimpleItem):
     theme = ''
     download = ''
     themeroller = ''
-    enableStatusMessage = True
-    enableDialogs = True
-    enableForms = True
-    enablePersonalTool = True
-    enableTabs = True
-    enableGlobalTabs = True
-    enablePortlets = True
-    enableFooter = True
-    enableEditBar = True
-    enableFonts = True
-
     themeHashes = None
 
     def cp_js_translations(self):
@@ -182,42 +122,6 @@ class UITool(UniqueObject, SimpleItem):
                       context=self.REQUEST),
             )
 
-    def js(self, *args):
-        """ Generate the js, suitable for the given settings. """
-        content_type_header = 'application/x-javascript;charset=UTF-8'
-        self.REQUEST.RESPONSE.setHeader('content-type',
-                                        content_type_header)
-
-        result = [self.cp_js_translations(),
-                  'jq(document).ready(function() {']
-
-        if self.enableFonts:
-            result.append('enableFonts();')
-        if self.enableDialogs:
-            result.append('enableDialogs();')
-        if self.enableStatusMessage:
-            result.append('enableStatusMessage();')
-        if self.enableForms:
-            result.append('enableForms();')
-            result.append('forms_are_enabled = true;')
-        if self.enablePersonalTool:
-            result.append('enablePersonalTool();')
-        if self.enableTabs:
-            result.append('enableTabs();')
-        if self.enableGlobalTabs:
-            result.append('enableGlobalTabs();')
-        if self.enablePortlets:
-            result.append('enablePortlets();')
-        if self.enableFooter:
-            result.append('enableFooter();')
-        if self.enableEditBar:
-            result.append('enableEditBar();')
-
-        result.append('removeRules();')
-        result.append('});')
-        return '\n'.join(result)
-
-    ## css generation
     def css(self, *args):
         """ Generate the css rules, suitable for the given settings. """
         content_type_header = 'text/css;charset=UTF-8'
@@ -239,16 +143,6 @@ class UITool(UniqueObject, SimpleItem):
                     self.theme
                     )
 
-        if self.enableForms:
-            result += FORMS
-        if self.enableStatusMessage:
-            result += STATUS_MESSAGE
-        if self.enableTabs or self.enableGlobalTabs:
-            result += TABS
-        if self.enableFooter:
-            result += FOOTER
-        if self.enablePersonalTool:
-            result += PERSONAL_TOOL
         return result
 
     def _redirectToCPView(self, msg=None):

@@ -12,7 +12,7 @@ from zope.interface import implements
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFCore.utils import getToolByName
 
-from ..tool.tool import IUITool, IUIToolSettings, IUIToolTheme, \
+from ..tool.tool import IUITool, IUIToolTheme, \
     IUIToolThemeroller
 from zettwerk.ui import messageFactory as _
 from ..filesystem import isAvailable, DOWNLOAD_HOME
@@ -29,10 +29,6 @@ class UIControlPanelAdapter(SchemaAdapterBase):
         self.portal = context
         ui_tool = getToolByName(self.portal, 'portal_ui_tool')
         self.context = ui_tool
-
-settings = FormFieldsets(IUIToolSettings)
-settings.id = 'settings'
-settings.label = _(u"Settings")
 
 theme = FormFieldsets(IUIToolTheme)
 theme.id = 'theme'
@@ -89,15 +85,14 @@ class ThemerollerDisplayWidget(DisplayWidget):
 class UIControlPanel(ControlPanelForm):
     """ Build the ControlPanel form. """
 
-    form_fields = FormFieldsets(settings, theme, themeroller)
+    form_fields = FormFieldsets(theme, themeroller)
 
     form_fields['themeroller'].custom_widget = ThemerollerDisplayWidget
     form_fields['themeroller'].for_display = True
 
     label = _(u"Zettwerk UI Themer")
     description = _('cp_description',
-                    u'The settings are to enable or disable theming of ' \
-                        u'elements. With the theme link, you can choose ' \
+                    u'With the theme link, you can choose ' \
                         u'a theme from your existing themes. The ' \
                         u'themeroller link is to create and change themes.'
                     )

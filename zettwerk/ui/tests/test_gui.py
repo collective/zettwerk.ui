@@ -8,6 +8,8 @@ from plone.app.testing.layers import SITE_OWNER_PASSWORD
 
 
 class TestGUI(unittest.TestCase):
+    """ this tests also implicit the transform rules, by quering
+    some of our custom css ids """
 
     layer = ZETTWERK_UI_SELENIUM_TESTING
 
@@ -17,15 +19,15 @@ class TestGUI(unittest.TestCase):
         sel.open('/plone')
 
         ## footer
-        result = sel.getAttribute("css=#portal-footer @class")
+        result = sel.getAttribute("css=#portal-footer-ui @class")
         self.assertEquals(result, u'ui-state-active ui-corner-all')
 
         ## globalnav
-        result = sel.getAttribute("css=#portal-globalnav @class")
+        result = sel.getAttribute("css=#portal-globalnav-ui @class")
         self.assertEquals(result, u'ui-state-default ui-corner-all')
 
         ## personaltools
-        result = sel.getAttribute("css=#portal-personaltools @class")
+        result = sel.getAttribute("css=#portal-personaltools-ui @class")
         self.assertTrue(result.find('ui-state-default') != -1)
 
     def test_enabled_elements_authenticated(self):
@@ -43,8 +45,8 @@ class TestGUI(unittest.TestCase):
         time.sleep(2)  # without this, the next call will fail (sometimes)
 
         ## edit-bar
-        result = sel.getAttribute("css=#edit-bar @class")
-        self.assertEquals(result, u'ui-state-active ui-corner-top')
+        result = sel.getAttribute("css=#edit-bar-ui @id")
+        self.assertEquals(result, u'edit-bar-ui')
         sel.open('/plone/logout')
         sel.waitForPageToLoad()
 
@@ -68,7 +70,7 @@ class TestGUI(unittest.TestCase):
         sel.waitForPageToLoad()
 
         ## click themeroller fieldset
-        sel.click("//form[@id='zc.page.browser_form']/div[1]/ul/li[3]/a/span")
+        sel.click("//form[@id='zc.page.browser_form']/div[1]/ul/li[2]/a/span")
         ## click themeroller link
         sel.click("link=Open jquery.ui themeroller (only firefox)")
         time.sleep(5)  # selenium's wait_for_frame_to_load not triggering
@@ -84,7 +86,7 @@ class TestGUI(unittest.TestCase):
         sel.waitForPageToLoad()
 
         ## click themes fieldset
-        sel.click("//form[@id='zc.page.browser_form']/div[1]/ul/li[2]/a/span")
+        sel.click("//form[@id='zc.page.browser_form']/div[1]/ul/li[1]/a/span")
         ## and check the selected theme
         self.assertEquals(sel.getValue('form.theme'),
                           u'tester')

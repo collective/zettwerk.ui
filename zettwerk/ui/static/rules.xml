@@ -179,9 +179,10 @@
 	  </li>
 	</xsl:for-each>
 	<xsl:for-each select="dt[position()!=1]">
+	  <xsl:variable name="sub_position"><xsl:value-of select="position() + 1" /></xsl:variable>
 	  <li class="ui-state-default ui-corner-top" style="display:inline;">
 	    <a style="color: none;">
-	      <xsl:attribute name="href">#<xsl:value-of select="../dd[position()!=1]/@id" /></xsl:attribute>
+	      <xsl:attribute name="href">#<xsl:value-of select="../dd[number($sub_position)]/@id" /></xsl:attribute>
 	      <span class="ui-state-default">
 		<xsl:value-of select="text()" />
 	      </span>
@@ -223,28 +224,28 @@
       <xsl:apply-templates select="@*" />
       <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
     	<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top">
-	  <xsl:for-each select="fieldset[1]">
-	    <li class="ui-state-default ui-state-active ui-corner-top" style="display:inline;">
-	      <a style="color: none;">
-		<xsl:attribute name="href">#<xsl:value-of select="legend/@id" /></xsl:attribute>
-		<span class="ui-state-default ui-state-active">
-		  <xsl:value-of select="legend/text()" />
-		</span>
-	      </a>
-	    </li>
-	  </xsl:for-each>
-	  <xsl:for-each select="fieldset[position()!=1]">
-	    <li class="ui-state-default ui-corner-top" style="display:inline;">
-	      <a style="color: none;">
-		<xsl:attribute name="href">#<xsl:value-of select="legend/@id" /></xsl:attribute>
-		<span class="ui-state-default">
-		  <xsl:value-of select="legend/text()" />
-		</span>
-	      </a>
-	    </li>
-	  </xsl:for-each>
+  	  <xsl:for-each select="fieldset[1]">
+  	    <li class="ui-state-default ui-state-active ui-corner-top" style="display:inline;">
+  	      <a style="color: none;">
+  		<xsl:attribute name="href">#<xsl:value-of select="legend/@id" /></xsl:attribute>
+  		<span class="ui-state-default ui-state-active">
+  		  <xsl:value-of select="legend/text()" />
+  		</span>
+  	      </a>
+  	    </li>
+  	  </xsl:for-each>
+  	  <xsl:for-each select="fieldset[position()!=1]">
+  	    <li class="ui-state-default ui-corner-top" style="display:inline;">
+  	      <a style="color: none;">
+  		<xsl:attribute name="href">#<xsl:value-of select="legend/@id" /></xsl:attribute>
+  		<span class="ui-state-default">
+  		  <xsl:value-of select="legend/text()" />
+  		</span>
+  	      </a>
+  	    </li>
+  	  </xsl:for-each>
     	</ul>
-	<xsl:apply-templates select="node()" />
+  	<xsl:apply-templates select="node()" />
       </div>
     </xsl:copy>
   </xsl:template>

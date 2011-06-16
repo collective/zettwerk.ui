@@ -82,13 +82,10 @@ var enableForms = function($content) {
     	$input_span.click(function() {
     	    handleCheckboxClick(true);
     	});
-    	$input_span.change(function() {
-    	    console.log("checked");
-    	})
 
     	// and on labels for this, if exists
     	var $extra_label = $span_container.parent().find('label:last');
-    	if ($extra_label.attr('for') == $input.attr('id')) {
+	if ($input.attr('id') && $extra_label.attr('for') == $input.attr('id')) {
     	    $extra_label.click(function() {
     		handleCheckboxClick(false);
     	    });

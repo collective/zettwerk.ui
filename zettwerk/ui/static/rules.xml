@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rules
+    if-path="/manage"
     xmlns="http://namespaces.plone.org/diazo"
     xmlns:css="http://namespaces.plone.org/diazo/css"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-  <theme href="blank.html" />
+  <theme href="blank.html"  />
   <replace css:theme="html" css:content="html" />
 
   <!-- start: font -->
   <xsl:template match="body">
-    <xsl:copy>
-      <xsl:apply-templates select="@*" />
-      <xsl:attribute name="class"><xsl:value-of select="concat('ui-widget ', @class)" /></xsl:attribute>
-      <xsl:apply-templates match="node()" />
-    </xsl:copy>
+    <xsl:choose>
+      <xsl:when test="not(/html/head/link[@href='/manage_page_style.css'])">
+	<xsl:copy>
+	  <xsl:apply-templates select="@*" />
+	  <xsl:attribute name="class"><xsl:value-of select="concat('ui-widget ', @class)" /></xsl:attribute>
+	  <xsl:apply-templates match="node()" />
+	</xsl:copy>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:copy>
+	  <xsl:apply-templates select="@*" />
+	  <xsl:apply-templates select="node()" />
+	</xsl:copy>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   <!-- end: font -->
 
   <!-- start: global tabs -->
-  <xsl:template match="*[@id='visual-portal-wrapper']//ul[@id='portal-globalnav']">
+  <xsl:template match="ul[@id='portal-globalnav']">
     <div id="ui-globalnav" class="ui-bottonset">
       <xsl:copy>
 	<xsl:apply-templates select="@*" />
@@ -29,7 +40,7 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//ul[@id='portal-globalnav']/li">
+  <xsl:template match="ul[@id='portal-globalnav']/li">
     <xsl:param name="classes">
       <xsl:choose>
 	<xsl:when test="position() = 1 and @class='selected'">
@@ -55,7 +66,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//ul[@id='portal-globalnav']/li/a">
+  <xsl:template match="ul[@id='portal-globalnav']/li/a">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class"><xsl:value-of select="concat('ui-button-text ', @class)" /></xsl:attribute>
@@ -66,7 +77,7 @@
 
 
   <!-- start: personal tools -->
-  <xsl:template match="*[@id='visual-portal-wrapper']//dl[@id='portal-personaltools']">
+  <xsl:template match="dl[@id='portal-personaltools']">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class">
@@ -76,7 +87,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//dl[@id='portal-personaltools']/dd">
+  <xsl:template match="dl[@id='portal-personaltools']/dd">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class"><xsl:value-of select="concat('ui-helper-reset ui-state-default ui-corner-all ', @class)" /></xsl:attribute>
@@ -86,7 +97,7 @@
   <!-- end: personal tools -->
 
   <!-- start: statusbar -->
-  <xsl:template match="*[@id='visual-portal-wrapper']//dl[contains(concat( ' ', @class, ' ' ), ' portalMessage ') and contains(concat( ' ', @class, ' ' ), ' warning ')] | *[@id='visual-portal-wrapper']//dl[contains(concat( ' ', @class, ' ' ), ' portalMessage ') and contains(concat( ' ', @class, ' ' ), ' error ')]">
+  <xsl:template match="dl[contains(concat( ' ', @class, ' ' ), ' portalMessage ') and contains(concat( ' ', @class, ' ' ), ' warning ')] | dl[contains(concat( ' ', @class, ' ' ), ' portalMessage ') and contains(concat( ' ', @class, ' ' ), ' error ')]">
     <xsl:if test="dd/*">
       <div class="ui-custom-status-container ui-state-error ui-corner-all">
 	<p>
@@ -98,7 +109,7 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//dl[contains(concat( ' ', @class, ' ' ), ' portalMessage ') and contains(concat( ' ', @class, ' ' ), ' info ')]">
+  <xsl:template match="dl[contains(concat( ' ', @class, ' ' ), ' portalMessage ') and contains(concat( ' ', @class, ' ' ), ' info ')]">
     <xsl:if test="dd/text()">
       <div class="ui-custom-status-container ui-state-highlight ui-corner-all">
 	<p>
@@ -112,18 +123,28 @@
   <!-- end: statusbar -->
 
   <!-- start: forms -->
-  <xsl:template match="*[@id='visual-portal-wrapper']//input | *[@id='visual-portal-wrapper']//select | *[@id='visual-portal-wrapper']//textarea">
-    <span class="ui-button-text-only">
-      <xsl:copy>
-	<xsl:apply-templates select="@*" />
-	<xsl:attribute name="class"><xsl:value-of select="concat('ui-widget-content ui-corner-all ui-button-text ui-button ui-widget hover ', @class)" /></xsl:attribute>
-	<xsl:attribute name="style">padding-left: 4px; padding-right: 4px;</xsl:attribute>
-	<xsl:apply-templates select="node()" />
-      </xsl:copy>
-    </span>
+  <xsl:template match="input | select | textarea | button">
+    <xsl:choose>
+      <xsl:when test="not(/html/head/link[@href='/manage_page_style.css'])">
+	<span class="ui-button-text-only">
+	  <xsl:copy>
+	    <xsl:apply-templates select="@*" />
+	    <xsl:attribute name="class"><xsl:value-of select="concat('ui-widget-content ui-corner-all ui-button-text ui-button ui-widget hover ', @class)" /></xsl:attribute>
+	    <xsl:attribute name="style"><xsl:value-of select="concat('padding-left: 4px; padding-right: 4px; ', @style)" /></xsl:attribute>
+	    <xsl:apply-templates select="node()" />
+	  </xsl:copy>
+	</span>
+      </xsl:when>
+      <xsl:otherwise>
+       <xsl:copy>
+	 <xsl:apply-templates select="@*" />
+	 <xsl:apply-templates select="node()" />
+       </xsl:copy>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//div[@class='managePortletsLink']|a[@class='managePortletsFallback']">
+  <xsl:template match="div[@class='managePortletsLink']|a[@class='managePortletsFallback']">
     <span class="ui-button-text-only">
       <xsl:copy>
 	<xsl:attribute name="class">ui-widget-content ui-corner-all ui-button-text ui-button ui-widget hover</xsl:attribute>
@@ -133,7 +154,7 @@
     </span>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//*[@id='LSShadow']">
+  <xsl:template match="*[@id='LSShadow']">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class"><xsl:value-of select="concat('ui-corner-all ui-state-focus ', @class)" /></xsl:attribute>
@@ -141,54 +162,74 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//input[@type='checkbox']">
-    <xsl:param name="disabled">
-      <xsl:if test="./@disabled">
-	ui-state-disabled
-      </xsl:if>
-    </xsl:param>
-    <span class="ui-button-text-only">
-      <span style="display:inline-block;width:16px;height:16px;margin-right:5px;">
-	<xsl:attribute name="class">
-	  <xsl:value-of select="$disabled" />
-	  hover ui-widget-content ui-corner-all
-	</xsl:attribute>
-	<label style="width: 16px; height: 16px; display: inline-block">
-	</label>
-      </span>
-      <xsl:copy>
-	<xsl:apply-templates select="@*" />
-	<xsl:attribute name="style">display: none;</xsl:attribute>
-      </xsl:copy>
-    </span>
+  <xsl:template match="input[@type='checkbox']">
+    <xsl:choose>
+     <xsl:when test="not(/html/head/link[@href='/manage_page_style.css'])">
+       <xsl:param name="disabled">
+	 <xsl:if test="./@disabled">
+	   ui-state-disabled
+	 </xsl:if>
+       </xsl:param>
+       <span class="ui-button-text-only">
+	 <span style="display:inline-block;width:16px;height:16px;margin-right:5px;">
+	   <xsl:attribute name="class">
+	     <xsl:value-of select="$disabled" />
+	     hover ui-widget-content ui-corner-all
+	   </xsl:attribute>
+	   <label style="width: 16px; height: 16px; display: inline-block">
+	   </label>
+	 </span>
+	 <xsl:copy>
+	   <xsl:apply-templates select="@*" />
+	   <xsl:attribute name="style">display: none;</xsl:attribute>
+	 </xsl:copy>
+       </span>
+     </xsl:when>
+     <xsl:otherwise>
+       <xsl:copy>
+	 <xsl:apply-templates select="@*" />
+	 <xsl:apply-templates select="node()" />
+       </xsl:copy>
+     </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//input[@type='radio']">
-    <xsl:param name="disabled">
-      <xsl:if test="./@disabled">
-	ui-state-disabled
-      </xsl:if>
-    </xsl:param>
-    <span class="ui-button-text-only">
-      <span style="display:inline-block;width:16px;height:16px;margin-right:5px;">
-	<xsl:attribute name="class">
-	  <xsl:value-of select="$disabled" />
-	  hover ui-widget-content ui-corner-all
-	</xsl:attribute>
-	<label style="width: 16px; height: 16px; display: inline-block"
-	       class="ui-icon ui-icon-radio-off">
-	</label>
-      </span>
-      <xsl:copy>
-	<xsl:apply-templates select="@*" />
-	<xsl:attribute name="style">display: none;</xsl:attribute>
-      </xsl:copy>
-    </span>
+  <xsl:template match="input[@type='radio']">
+    <xsl:choose>
+     <xsl:when test="not(/html/head/link[@href='/manage_page_style.css'])">
+       <xsl:param name="disabled">
+	 <xsl:if test="./@disabled">
+	   ui-state-disabled
+	 </xsl:if>
+       </xsl:param>
+       <span class="ui-button-text-only">
+	 <span style="display:inline-block;width:16px;height:16px;margin-right:5px;">
+	   <xsl:attribute name="class">
+	     <xsl:value-of select="$disabled" />
+	     hover ui-widget-content ui-corner-all
+	   </xsl:attribute>
+	   <label style="width: 16px; height: 16px; display: inline-block"
+		  class="ui-icon ui-icon-radio-off">
+	   </label>
+	 </span>
+	 <xsl:copy>
+	   <xsl:apply-templates select="@*" />
+	   <xsl:attribute name="style">display: none;</xsl:attribute>
+	 </xsl:copy>
+       </span>
+     </xsl:when>
+     <xsl:otherwise>
+       <xsl:copy>
+	 <xsl:apply-templates select="@*" />
+	 <xsl:apply-templates select="node()" />
+       </xsl:copy>
+     </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
   <!--  end: forms -->
 
   <!-- start: tabs: dl variant -->
-  <xsl:template match="*[@id='visual-portal-wrapper']//dl[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]">
+  <xsl:template match="dl[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]">
     <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
       <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-top">
 	<xsl:for-each select="dt[1]">
@@ -218,21 +259,21 @@
       </dl>
     </div>
   </xsl:template>
-  <xsl:template match="*[@id='visual-portal-wrapper']//dl[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]/dd[1]">
+  <xsl:template match="dl[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]/dd[1]">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="style">border: none;</xsl:attribute>
       <xsl:apply-templates select="node()" />
     </xsl:copy>
   </xsl:template>
-  <xsl:template match="*[@id='visual-portal-wrapper']//dl[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]/dd[position()!=1]">
+  <xsl:template match="dl[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]/dd[position()!=1]">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="style">display: none; border: none;</xsl:attribute>
       <xsl:apply-templates select="node()" />
     </xsl:copy>
   </xsl:template>
-  <xsl:template match="*[@id='visual-portal-wrapper']//dl[contains(@class, 'enableFormTabbing')]/dt">
+  <xsl:template match="dl[contains(@class, 'enableFormTabbing')]/dt">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="style">display: none;</xsl:attribute>
@@ -242,7 +283,7 @@
   <!-- end: tabs: ul variant -->
 
   <!-- start: tabs: form variant -->
-  <xsl:template match="*[@id='visual-portal-wrapper']//form[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]">
+  <xsl:template match="form[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <div class="ui-tabs ui-widget ui-widget-content ui-corner-all">
@@ -273,14 +314,14 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//form[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]/fieldset[1]">
+  <xsl:template match="form[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]/fieldset[1]">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="style">border: none;</xsl:attribute>
       <xsl:apply-templates select="node()" />
     </xsl:copy>
   </xsl:template>
-  <xsl:template match="*[@id='visual-portal-wrapper']//form[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]/fieldset[position()!=1]">
+  <xsl:template match="form[contains(concat( ' ', @class, ' ' ), ' enableFormTabbing ')]/fieldset[position()!=1]">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="style">display: none; border: none;</xsl:attribute>
@@ -288,7 +329,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//form[contains(@class, 'enableFormTabbing')]/fieldset/legend">
+  <xsl:template match="form[contains(@class, 'enableFormTabbing')]/fieldset/legend">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="style">display: none;</xsl:attribute>
@@ -298,7 +339,7 @@
   <!-- end: tabs -->
 
   <!-- start: footer -->
-  <xsl:template match="*[@id='visual-portal-wrapper']//*[@id='portal-footer']">
+  <xsl:template match="*[@id='portal-footer']">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class">ui-state-active ui-corner-all</xsl:attribute>
@@ -309,14 +350,14 @@
   <!-- end: footer -->
 
   <!-- start: portlets -->
-  <xsl:template match="*[@id='visual-portal-wrapper']//dl[contains(concat( ' ', @class, ' ' ), concat( ' ', 'portlet', ' '))]">
+  <xsl:template match="dl[contains(concat( ' ', @class, ' ' ), concat( ' ', 'portlet', ' '))]">
     <dl>
       <xsl:attribute name="class"><xsl:value-of select="concat('ui-widget-content ui-corner-all ui-helper-reset ', @class)" /></xsl:attribute>
       <xsl:apply-templates select="node()" />
     </dl>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//*[@class='portletHeader']">
+  <xsl:template match="*[@class='portletHeader']">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class"><xsl:value-of select="concat('ui-state-default ui-corner-all ', @class)" /></xsl:attribute>
@@ -324,7 +365,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//*[@class='portletHeader']/a">
+  <xsl:template match="*[@class='portletHeader']/a">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class"><xsl:value-of select="concat('ui-state-default ui-corner-all ', @class)" /></xsl:attribute>
@@ -334,14 +375,14 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//td[@class='todaynoevent'] | td[@class='event']">
+  <xsl:template match="td[@class='todaynoevent'] | td[@class='event']">
     <xsl:copy>
       <xsl:attribute name="class">ui-state-highlight ui-corner-all</xsl:attribute>
       <xsl:apply-templates select="node()" />
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//*[contains(concat( ' ', @class, ' '), ' navTreeCurrentItem ')]">
+  <xsl:template match="*[contains(concat( ' ', @class, ' '), ' navTreeCurrentItem ')]">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class">
@@ -360,7 +401,7 @@
 
 
   <!-- start: editbar -->
-  <xsl:template match="*[@id='visual-portal-wrapper']//*[@id='edit-bar']">
+  <xsl:template match="*[@id='edit-bar']">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="id">edit-bar-ui</xsl:attribute>
@@ -368,7 +409,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//*[@id='content-views']">
+  <xsl:template match="*[@id='content-views']">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class"><xsl:value-of select="concat('ui-state-active ui-corner-top ', @class)" /></xsl:attribute>
@@ -377,7 +418,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//*[@id='contentActionMenus']">
+  <xsl:template match="*[@id='contentActionMenus']">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class"><xsl:value-of select="concat('ui-state-active ui-corner-bottom ', @class)" /></xsl:attribute>
@@ -386,7 +427,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//*[@id='edit-bar']/ul/li[@class='selected']/a">
+  <xsl:template match="*[@id='edit-bar']/ul/li[@class='selected']/a">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class"><xsl:value-of select="concat('ui-state-default ui-corner-top ', @class)" /></xsl:attribute>
@@ -394,7 +435,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//*[@id='edit-bar']/ul/li[@class='plain']/a">
+  <xsl:template match="*[@id='edit-bar']/ul/li[@class='plain']/a">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class"><xsl:value-of select="concat('ui-corner-top ', @class)" /></xsl:attribute>

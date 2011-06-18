@@ -164,16 +164,13 @@
 
   <xsl:template match="input[@type='checkbox']">
     <xsl:choose>
-     <xsl:when test="not(/html/head/link[@href='/manage_page_style.css'])">
-       <xsl:param name="disabled">
-	 <xsl:if test="./@disabled">
-	   ui-state-disabled
-	 </xsl:if>
-       </xsl:param>
+     <xsl:when test="not(/html/head/link[1][@href='/manage_page_style.css'])">
        <span class="ui-button-text-only">
 	 <span style="display:inline-block;width:16px;height:16px;margin-right:5px;">
 	   <xsl:attribute name="class">
-	     <xsl:value-of select="$disabled" />
+	     <xsl:if test="./@disabled">
+	       ui-state-disabled
+	     </xsl:if>
 	     hover ui-widget-content ui-corner-all
 	   </xsl:attribute>
 	   <label style="width: 16px; height: 16px; display: inline-block">
@@ -197,15 +194,12 @@
   <xsl:template match="input[@type='radio']">
     <xsl:choose>
      <xsl:when test="not(/html/head/link[@href='/manage_page_style.css'])">
-       <xsl:param name="disabled">
-	 <xsl:if test="./@disabled">
-	   ui-state-disabled
-	 </xsl:if>
-       </xsl:param>
        <span class="ui-button-text-only">
 	 <span style="display:inline-block;width:16px;height:16px;margin-right:5px;">
 	   <xsl:attribute name="class">
-	     <xsl:value-of select="$disabled" />
+	     <xsl:if test="./@disabled">
+	       ui-state-disabled
+	     </xsl:if>
 	     hover ui-widget-content ui-corner-all
 	   </xsl:attribute>
 	   <label style="width: 16px; height: 16px; display: inline-block"

@@ -123,7 +123,7 @@
     </span>
   </xsl:template>
 
-  <xsl:template match="*[@id='visual-portal-wrapper']//div[@class='managePortletsLink']">
+  <xsl:template match="*[@id='visual-portal-wrapper']//div[@class='managePortletsLink']|a[@class='managePortletsFallback']">
     <span class="ui-button-text-only">
       <xsl:copy>
 	<xsl:attribute name="class">ui-widget-content ui-corner-all ui-button-text ui-button ui-widget hover</xsl:attribute>
@@ -154,6 +154,29 @@
 	  hover ui-widget-content ui-corner-all
 	</xsl:attribute>
 	<label style="width: 16px; height: 16px; display: inline-block">
+	</label>
+      </span>
+      <xsl:copy>
+	<xsl:apply-templates select="@*" />
+	<xsl:attribute name="style">display: none;</xsl:attribute>
+      </xsl:copy>
+    </span>
+  </xsl:template>
+
+  <xsl:template match="*[@id='visual-portal-wrapper']//input[@type='radio']">
+    <xsl:param name="disabled">
+      <xsl:if test="./@disabled">
+	ui-state-disabled
+      </xsl:if>
+    </xsl:param>
+    <span class="ui-button-text-only">
+      <span style="display:inline-block;width:16px;height:16px;margin-right:5px;">
+	<xsl:attribute name="class">
+	  <xsl:value-of select="$disabled" />
+	  hover ui-widget-content ui-corner-all
+	</xsl:attribute>
+	<label style="width: 16px; height: 16px; display: inline-block"
+	       class="ui-icon ui-icon-radio-off">
 	</label>
       </span>
       <xsl:copy>

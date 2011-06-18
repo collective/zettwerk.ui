@@ -84,7 +84,7 @@ var enableForms = function($content) {
     	});
 
     	// and on labels for this, if exists
-    	var $extra_label = $span_container.parent().find('label:last');
+    	var $extra_label = $span_container.next();
 	if ($input.attr('id') && $extra_label.attr('for') == $input.attr('id')) {
     	    $extra_label.click(function() {
     		handleCheckboxClick(false);
@@ -97,41 +97,57 @@ var enableForms = function($content) {
     	}
     });
 
-    // $content.find('input:radio').each(function() {
-    // 	var $label = jq('<label />').insertBefore(jq(this));
-    // 	jq(this).hide();
-    // 	$label.addClass("ui-icon ui-icon-radio-off");
-    // 	$label.wrap('<span class="ui-widget-content ui-corner-all" style="display:inline-block;width:16px;height:16px;margin-right:5px;"/>');
-    // 	if (jq(this).attr('disabled')) {
-    //         $label.parent().addClass('ui-state-disabled');
-    // 	} else {
-    // 	    $label.parent().addClass('hover');
-    // 	    $label.parent("span").click(function(event) {
-    // 		if (jq(this).next().attr('checked')) {
-    // 		    return // do nothing, if radiobox is already checked
-    // 		}
-    // 		// disable other radios of this group
-    // 		var radio_name = jq(this).parent().find('input:radio').attr('name');
-    // 		var radio_value = jq(this).parent().find('input:radio').val();
-    // 		$content.find('input:radio[name='+radio_name+']').each(function() {
-    // 		    if (jq(this).val() != radio_value && jq(this).attr('checked')) {
-    // 			jq(this).parent().find('label').parent('span').toggleClass("ui-state-active");
-    // 			jq(this).parent().find('label').toggleClass("ui-icon-radio-off ui-icon-bullet");
-    // 			jq(this).next().click();
-    // 		    }
-    // 		});
-    // 		// check this radio
-    // 		jq(this).toggleClass("ui-state-active");
-    // 		$label.toggleClass("ui-icon-radio-off ui-icon-bullet");
-    // 		jq(this).next().click();
-    // 	    });
-    // 	};
-    // 	// initialize already checked ones
-    // 	if (jq(this).attr('checked')) {
-    // 	    $label.parent("span").toggleClass("ui-state-active");
-    // 	    $label.toggleClass("ui-icon-radio-off ui-icon-bullet");
-    // 	}
-    // });
+    $content.find('input:radio').each(function() {
+    	var $input = jq(this);
+    	var $span_container = $input.parent();
+    	var $input_span = $span_container.find('span');
+    	var $input_label = $span_container.find('label');
+
+    	var handleRadioClick = function(switchInput, init) {
+    	    $input_span.toggleClass("ui-state-active");
+    	    $input_label.toggleClass("ui-icon-radio-off ui-icon-bullet");
+
+	    if (!init) {
+    		// disable other radios of this group
+    		var radio_name = $input.attr('name');
+    		$content.find('input:radio[name='+radio_name+']').each(function() {
+    		    if (jq(this) != $input && jq(this).attr('checked')) {
+    			jq(this).parent().find('label').parent('span').toggleClass("ui-state-active");
+    			jq(this).parent().find('label').toggleClass("ui-icon-radio-off ui-icon-bullet");
+
+    		    }
+    		});
+	    }
+    	    if (switchInput) {
+		// check this radio
+    		$input[0].checked = !$input[0].checked;
+    		$input.triggerHandler("click");
+    	    }
+    	}
+    	// handle clicks on the radio
+    	$input_span.click(function() {
+	    if ($input.attr('checked') ) {
+		return  // do nothing, if the radio is already checked
+	    }
+    	    handleRadioClick(true);
+    	});
+
+    	// and on labels for this, if exists
+    	var $extra_label = $span_container.next();
+	if ($input.attr('id') && $extra_label.attr('for') == $input.attr('id')) {
+    	    $extra_label.click(function() {
+		if ($input.attr('checked') ) {
+		    return  // do nothing, if the radio is already checked
+		}
+    		handleRadioClick(false);
+    	    });
+    	}
+
+    	// initialize already checked ones
+    	if ($input.attr('checked')) {
+    	    handleRadioClick(false, true);
+    	}
+    });
 
     $content.find(".hover").hover(function(){
         jq(this).addClass("ui-state-hover");

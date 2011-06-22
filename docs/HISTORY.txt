@@ -6,6 +6,7 @@ Changelog
 
 - re-added radio box styling
 - tuned rules.xml to not style zmi pages
+- Add french translation [toutpt]
 
 1.0rc1 (2011-06-12)
 -------------------

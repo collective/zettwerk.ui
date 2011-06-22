@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zettwerk.ui\n"
 "POT-Creation-Date: 2011-06-12 06:44+0000\n"
-"PO-Revision-Date: 2011-02-15 15:45-0400\n"
+"PO-Revision-Date: 2011-06-22 11:26-0400\n"
 "Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
 "Language-Team: Spanish <plone-conosur@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Descargar"
 
 #: ./../tool/tool.py:108
 msgid "Download name given but nothing themed - please use themeroller"
-msgstr "Nombre para descarga dado, pero a ningun temas aplicado - por favor, use themeroller"
+msgstr "Nombre para descarga dado, pero a ningún temas aplicado - por favor, use themeroller"
 
 #: ./../tool/tool.py:76
 msgid "Name of the theme to download."
@@ -41,7 +41,7 @@ msgstr "Abrir el jquery.ui themeroller (solamente en Mozilla Firefox)"
 
 #: ./../tool/tool.py:120
 msgid "Please use no special characters."
-msgstr ""
+msgstr "Por favor, no use caracteres especiales."
 
 #: ./../browser/cp_view.py:36
 msgid "Select a theme from your downloaded themes."
@@ -53,11 +53,11 @@ msgstr "Lo sentimos, debido a las restricciones de seguridad, esta herramienta s
 
 #: ./../tool/tool.py:117
 msgid "Sorry, sunburst is an invalid name"
-msgstr ""
+msgstr "Lo siento, sunburst es un nombre invalido"
 
 #: ./../tool/tool.py:215
 msgid "The downloaded zipfile is corrupt. This could mean that the themeroller webservice has problems. The common fix for this is, to wait a day or two and try it again."
-msgstr ""
+msgstr "El archivo comprimido .zip descargado esta corrupto. Este podría significar que el servicio web de themeroller tiene problemas. La solución común a esto es, esperar un día o dos y intente de nuevo."
 
 #: ./../browser/cp_view.py:35
 #: ./../tool/tool.py:61
@@ -79,9 +79,8 @@ msgstr "Zettwerk UI Themer"
 
 #. Default: "With the theme link, you can choose a theme from your existing themes. The themeroller link is to create and change themes."
 #: ./../browser/cp_view.py:94
-#, fuzzy
 msgid "cp_description"
-msgstr "Las configuraciones son para activar o desactivar la tematización de los elementos. Con el enlace de tema, usted puede elegir un tema de sus temas ya existentes. El enlace themeroller es crear y cambiar los temas."
+msgstr "Con el enlace de tema, usted puede elegir un tema de sus temas ya existentes. El enlace themeroller es para crear y cambiar los temas."
 
 #. Default: "New themes gets\ndownloaded to your server's filesystem. The target directory for storing them\nis given below. If the folder is not available - downloading is disabled. But\nthis tool can create the directory. If you want to integrate a custom theme\nfrom themeroller do not use the themeroller's download link - that will\ndownload the theme to your local machine. You must use the save button below.\n"
 #: ./../browser/cp_view.py:41

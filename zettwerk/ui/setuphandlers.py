@@ -5,6 +5,9 @@ def disable_sunburst_patch(context):
     """ we must disable the patch of collective.js.jqueryui to sunburst
     to make our font colors work.
     """
+    if context.readDataFile('zettwerk.ui-disable_sunburst_patch.txt') is None:
+        return
+
     site = context.getSite()
     portal_css = getToolByName(site, 'portal_css')
     portal_css.getResourcesDict() \

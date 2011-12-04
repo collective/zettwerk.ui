@@ -46,7 +46,6 @@ var enablePersonalTool = function() {
     });
 };
 
-var forms_are_enabled = false; // gets set via tool.js()
 var enableForms = function($content) {
     if (!$content) {
 	var $content = jq('body');
@@ -195,9 +194,8 @@ var showDialogContent = function(data, title) {
 
     // bring up the dialog
     $content.appendTo('#dialogContainer');
-    if (forms_are_enabled) {
-	enableForms($content);
-    }
+    enableForms($content);
+
     var $dialog = jq('#dialogContainer').dialog({width: '60%', buttons: buttons});
 };
 
@@ -216,9 +214,11 @@ var enableTabs = function() {
         jq(this).find('span').addClass('ui-state-active');
 
 	// hide all fieldsets
-	jq('div.ui-tabs fieldset, div.ui-tabs dd').hide()
+	jq('div.ui-tabs>fieldset,div.ui-tabs>dd').hide();
+
 	var active_id = jq(this).attr('href');  // thats the hidden legend in the fieldset
 	var $active = jq(active_id);
+
 	if ($active[0].tagName.toLowerCase() == 'dd') {
 	    $active.show();
 	} else {

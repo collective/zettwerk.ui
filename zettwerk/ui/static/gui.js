@@ -84,7 +84,7 @@ var enableForms = function($content) {
 
     	// and on labels for this, if exists
     	var $extra_label = $span_container.next();
-	if ($input.attr('id') && $extra_label.attr('for') == $input.attr('id')) {
+    	if ($input.attr('id') && $extra_label.attr('for') == $input.attr('id')) {
     	    $extra_label.click(function() {
     		handleCheckboxClick(false);
     	    });

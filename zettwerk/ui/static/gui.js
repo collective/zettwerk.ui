@@ -170,6 +170,21 @@ var enableDialogs = function() {
 	     );
         return false; // avoid the execution of the regular link
     });
+
+    jq("form.link-overlay input[type='submit']").unbind('click').click(function() {
+        // remove old dialogs
+        jq('#dialogContainer').remove();
+
+        // use the links content as default title of the dialog
+        var title = '';
+        $.get(jq(this).parents('form').attr('action'),
+              {},
+	      function(data) {
+		  showDialogContent(data,title)
+	      }
+	     );
+        return false; // avoid the execution of the regular link
+    });
 };
 
 var showDialogContent = function(data, title) {

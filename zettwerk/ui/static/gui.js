@@ -215,14 +215,14 @@ var showDialogContent = function(data, title) {
 };
 
 var enableTabs = function() {
-    jq('div.ui-tabs ul li').hover(function() {
+    jq('div.ui-tabs > ul > li').hover(function() {
         jq(this).addClass('ui-state-hover');
         jq(this).find('span').addClass('ui-state-hover');
     }, function() {
         jq(this).removeClass('ui-state-hover');
         jq(this).find('span').removeClass('ui-state-hover');
     });
-    jq('div.ui-tabs li a').click(function() {
+    jq('div.ui-tabs > ul > li a').click(function() {
 	// handle the tabs
         jq(this).parent().parent().find('.ui-state-active').removeClass('ui-state-active');
         jq(this).parent().addClass('ui-state-active');

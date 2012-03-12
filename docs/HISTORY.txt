@@ -1,10 +1,10 @@
 Changelog
 =========
 
-1.0.2 (unreleased)
+1.0.2 (2012-03-12)
 ------------------
 
-- Nothing changed yet.
+- Fixed related Items and categorisation (#4)
 
 
 1.0.1 (2011-10-21)

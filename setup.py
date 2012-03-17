@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0.2'
+version = '1.0.3.dev0'
 
 setup(name='zettwerk.ui',
       version=version,
@@ -28,7 +28,7 @@ setup(name='zettwerk.ui',
           'setuptools',
           # -*- Extra requirements: -*-
           'collective.js.jqueryui>1.8.13',
-          'plone.app.theming'
+          'plone.app.theming>=1.0b9'
       ],
       extras_require={
         'test': ['plone.app.testing', 'mocker', 'gocept.selenium']

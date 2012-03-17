@@ -11,19 +11,11 @@
   <!-- start: font -->
   <xsl:template match="body">
     <xsl:choose>
-      <xsl:when test="not(/html/head/link[@href='/manage_page_style.css'])">
 	<xsl:copy>
 	  <xsl:apply-templates select="@*" />
 	  <xsl:attribute name="class"><xsl:value-of select="concat('ui-widget ', @class)" /></xsl:attribute>
 	  <xsl:apply-templates match="node()" />
 	</xsl:copy>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:copy>
-	  <xsl:apply-templates select="@*" />
-	  <xsl:apply-templates select="node()" />
-	</xsl:copy>
-      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
   <!-- end: font -->
@@ -195,31 +187,23 @@
 
   <xsl:template match="input[@type='radio']">
     <xsl:choose>
-     <xsl:when test="not(/html/head/link[@href='/manage_page_style.css'])">
-       <span class="ui-button-text-only">
-	 <span style="display:inline-block;width:16px;height:16px;margin-right:5px;">
-	   <xsl:attribute name="class">
-	     <xsl:if test="./@disabled">
-	       ui-state-disabled
-	     </xsl:if>
-	     hover ui-widget-content ui-corner-all
-	   </xsl:attribute>
-	   <label style="width: 16px; height: 16px; display: inline-block"
-		  class="ui-icon ui-icon-radio-off">
-	   </label>
-	 </span>
-	 <xsl:copy>
-	   <xsl:apply-templates select="@*" />
-	   <xsl:attribute name="style">display: none;</xsl:attribute>
-	 </xsl:copy>
-       </span>
-     </xsl:when>
-     <xsl:otherwise>
-       <xsl:copy>
-	 <xsl:apply-templates select="@*" />
-	 <xsl:apply-templates select="node()" />
-       </xsl:copy>
-     </xsl:otherwise>
+      <span class="ui-button-text-only">
+	<span style="display:inline-block;width:16px;height:16px;margin-right:5px;">
+	  <xsl:attribute name="class">
+	    <xsl:if test="./@disabled">
+	      ui-state-disabled
+	    </xsl:if>
+	    hover ui-widget-content ui-corner-all
+	  </xsl:attribute>
+	  <label style="width: 16px; height: 16px; display: inline-block"
+		 class="ui-icon ui-icon-radio-off">
+	  </label>
+	</span>
+	<xsl:copy>
+	  <xsl:apply-templates select="@*" />
+	  <xsl:attribute name="style">display: none;</xsl:attribute>
+	</xsl:copy>
+      </span>
     </xsl:choose>
   </xsl:template>
   <!--  end: forms -->

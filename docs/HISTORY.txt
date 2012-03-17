@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.3 (unreleased)
+1.0.3 (2012-03-17)
 ------------------
 
 - Pinned plone.app.theming to avoid zmi styling

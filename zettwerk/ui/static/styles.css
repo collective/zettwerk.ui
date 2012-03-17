@@ -180,3 +180,6 @@ dt.portletHeader {
     border: none !important;
 }
 
+dl.actionMenu {
+    z-index: 99999;
+}

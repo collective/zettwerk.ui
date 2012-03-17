@@ -4,7 +4,7 @@ Changelog
 1.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed action menu display
 
 
 1.0.3 (2012-03-17)
@@ -12,7 +12,6 @@ Changelog
 
 - Pinned plone.app.theming to avoid zmi styling
 - Fully removed "not-zmi" styling rules
-
 
 
 1.0.2 (2012-03-12)
@@ -35,6 +34,7 @@ Changelog
 - tuned rules.xml to not style zmi pages
 - Add french translation [toutpt]
 - Updated spanish translation [macagua]
+
 
 1.0rc1 (2011-06-12)
 -------------------

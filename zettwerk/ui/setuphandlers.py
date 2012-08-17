@@ -10,11 +10,14 @@ def disable_sunburst_patch(context):
 
     site = context.getSite()
     portal_css = getToolByName(site, 'portal_css')
-    portal_css.getResourcesDict() \
-        .get('++resource++jquery-ui-themes/sunburst-patch.css') \
-        .setEnabled(False)
+    patch = portal_css.getResourcesDict() \
+        .get('++resource++jquery-ui-themes/sunburst-patch.css')
+    if patch:
+        patch.setEnabled(False)
+
     ## thats always disabled. if it is needed, we link
     ## it directly (see tool.tool.UITool.css)
-    portal_css.getResourcesDict() \
-        .get('++resource++jquery-ui-themes/sunburst/jqueryui.css') \
-        .setEnabled(False)
+    css = portal_css.getResourcesDict() \
+        .get('++resource++jquery-ui-themes/sunburst/jqueryui.css')
+    if css:
+        css.setEnabled(False)

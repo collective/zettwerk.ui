@@ -5,7 +5,7 @@ Changelog
 ------------------
 
 - Fixed Install error with newer collective.js.jqueryui versions
-
+- Plone 4.2 compatibility and tests
 
 1.0.4 (unreleased)
 ------------------

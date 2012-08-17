@@ -67,7 +67,7 @@
 
 
   <!-- start: personal tools -->
-  <xsl:template match="dl[@id='portal-personaltools']">
+  <xsl:template match="dl[@id='portal-personaltools'] | ul[@id='portal-personaltools']">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class">
@@ -77,7 +77,7 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="dl[@id='portal-personaltools']/dd">
+  <xsl:template match="dl[@id='portal-personaltools']/dd | ul[@id='portal-personaltools']/li">
     <xsl:copy>
       <xsl:apply-templates select="@*" />
       <xsl:attribute name="class"><xsl:value-of select="concat('ui-helper-reset ui-state-default ui-corner-all ', @class)" /></xsl:attribute>

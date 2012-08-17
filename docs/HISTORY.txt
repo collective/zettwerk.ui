@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.5 (unreleased)
+1.0.5 (2012-08-17)
 ------------------
 
 - Fixed Install error with newer collective.js.jqueryui versions

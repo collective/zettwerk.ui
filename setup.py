@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from setuptools import setup, find_packages
 import os
 
-version = '1.1.0.dev0'
+version = '1.1.0'
 
 setup(name='zettwerk.ui',
       version=version,
@@ -16,7 +18,7 @@ setup(name='zettwerk.ui',
         "Programming Language :: Python",
         ],
       keywords='plone, theme, jquery, jquery.ui, themeroller',
-      author='zettwerk GmbH',
+      author='Jörg Kubaile / zettwerk GmbH',
       author_email='jk@zettwerk.com',
       url='http://www.zettwerk.com',
       license='GPL',

@@ -60,94 +60,6 @@ var enableForms = function($content) {
         }
     });
 
-    $content.find('input:checkbox').each(function() {
-    	var $input = jq(this);
-    	var $span_container = $input.parent();
-    	var $input_span = $span_container.find('span');
-    	var $input_label = $span_container.find('label');
-
-    	var handleCheckboxClick = function(switchInput) {
-    	    $input_span.toggleClass("ui-state-active");
-    	    $input_label.toggleClass("ui-icon ui-icon-check");
-
-    	    // see http://www.bennadel.com/blog/1525-jQuery-s-Event-Triggering-Order-Of-Default-Behavior-And-triggerHandler-.htm
-    	    // for why to not use .click() here
-    	    if (switchInput) {
-    		$input[0].checked = !$input[0].checked;
-    		$input.triggerHandler("click");
-    	    }
-    	}
-    	// handle clicks on the checkbox
-    	$input_span.click(function() {
-    	    handleCheckboxClick(true);
-    	});
-
-    	// and on labels for this, if exists
-    	var $extra_label = $span_container.next();
-    	if ($input.attr('id') && $extra_label.attr('for') == $input.attr('id')) {
-    	    $extra_label.click(function() {
-    		handleCheckboxClick(false);
-    	    });
-    	}
-
-    	// initialize already checked ones
-    	if ($input.attr('checked')) {
-    	    handleCheckboxClick(false);
-    	}
-    });
-
-    $content.find('input:radio').each(function() {
-    	var $input = jq(this);
-    	var $span_container = $input.parent();
-    	var $input_span = $span_container.find('span');
-    	var $input_label = $span_container.find('label');
-
-    	var handleRadioClick = function(switchInput, init) {
-    	    $input_span.toggleClass("ui-state-active");
-    	    $input_label.toggleClass("ui-icon-radio-off ui-icon-bullet");
-
-	    if (!init) {
-    		// disable other radios of this group
-    		var radio_name = $input.attr('name');
-    		$content.find('input:radio[name='+radio_name+']').each(function() {
-    		    if (jq(this) != $input && jq(this).attr('checked')) {
-    			jq(this).parent().find('label').parent('span').toggleClass("ui-state-active");
-    			jq(this).parent().find('label').toggleClass("ui-icon-radio-off ui-icon-bullet");
-
-    		    }
-    		});
-	    }
-    	    if (switchInput) {
-		// check this radio
-    		$input[0].checked = !$input[0].checked;
-    		$input.triggerHandler("click");
-    	    }
-    	}
-    	// handle clicks on the radio
-    	$input_span.click(function() {
-	    if ($input.attr('checked') ) {
-		return  // do nothing, if the radio is already checked
-	    }
-    	    handleRadioClick(true);
-    	});
-
-    	// and on labels for this, if exists
-    	var $extra_label = $span_container.next();
-	if ($input.attr('id') && $extra_label.attr('for') == $input.attr('id')) {
-    	    $extra_label.click(function() {
-		if ($input.attr('checked') ) {
-		    return  // do nothing, if the radio is already checked
-		}
-    		handleRadioClick(false);
-    	    });
-    	}
-
-    	// initialize already checked ones
-    	if ($input.attr('checked')) {
-    	    handleRadioClick(false, true);
-    	}
-    });
-
     $content.find(".hover").hover(function(){
         jq(this).addClass("ui-state-hover");
     },function(){
@@ -188,6 +100,7 @@ var enableDialogs = function() {
 };
 
 var showDialogContent = function(data, title) {
+    console.log(999)
     var $content = jq(data).find('#content');
 
     // take the first heading as dialog title, if available

@@ -153,55 +153,6 @@
       <xsl:apply-templates select="node()" />
     </xsl:copy>
   </xsl:template>
-
-  <xsl:template match="input[@type='checkbox']">
-    <xsl:choose>
-     <xsl:when test="not(/html/body[@id='atrefbrowserpopup'] | ../../../../../../*[contains(concat( ' ', @class, ' ' ), ' ArchetypesReferenceBrowserWidget ')])">
-       <span class="ui-button-text-only">
-  	 <span style="display:inline-block;width:16px;height:16px;margin-right:5px;">
-  	   <xsl:attribute name="class">
-  	     <xsl:if test="./@disabled">
-  	       ui-state-disabled
-  	     </xsl:if>
-  	     hover ui-widget-content ui-corner-all
-  	   </xsl:attribute>
-  	   <label style="width: 16px; height: 16px; display: inline-block">
-  	   </label>
-  	 </span>
-  	 <xsl:copy>
-  	   <xsl:apply-templates select="@*" />
-  	   <xsl:attribute name="style">display: none;</xsl:attribute>
-  	 </xsl:copy>
-       </span>
-     </xsl:when>
-     <xsl:otherwise>
-       <xsl:copy>
-  	 <xsl:apply-templates select="@*" />
-  	 <xsl:apply-templates select="node()" />
-       </xsl:copy>
-     </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
-  <xsl:template match="input[@type='radio']">
-    <span class="ui-button-text-only">
-      <span style="display:inline-block;width:16px;height:16px;margin-right:5px;">
-	<xsl:attribute name="class">
-	  <xsl:if test="./@disabled">
-	    ui-state-disabled
-	  </xsl:if>
-	  hover ui-widget-content ui-corner-all
-	</xsl:attribute>
-	<label style="width: 16px; height: 16px; display: inline-block"
-	       class="ui-icon ui-icon-radio-off">
-	</label>
-      </span>
-      <xsl:copy>
-	<xsl:apply-templates select="@*" />
-	<xsl:attribute name="style">display: none;</xsl:attribute>
-      </xsl:copy>
-    </span>
-  </xsl:template>
   <!--  end: forms -->
 
   <!-- start: tabs: dl variant -->

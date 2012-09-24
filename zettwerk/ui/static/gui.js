@@ -100,7 +100,6 @@ var enableDialogs = function() {
 };
 
 var showDialogContent = function(data, title) {
-    console.log(999)
     var $content = jq(data).find('#content');
 
     // take the first heading as dialog title, if available

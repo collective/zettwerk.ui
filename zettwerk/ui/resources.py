@@ -2,9 +2,17 @@ from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope.interface import Interface
 from zope.component.globalregistry import getGlobalSiteManager
 from zope.security.checker import CheckerPublic, NamesChecker
-from zope.app.publisher.browser.directoryresource \
-    import DirectoryResourceFactory
-from zope.app.publisher.browser.resourcemeta import allowed_names
+
+try:
+    # Plone < 4.3
+    from zope.app.publisher.browser.directoryresource \
+        import DirectoryResourceFactory
+    from zope.app.publisher.browser.resourcemeta import allowed_names
+except ImportError:
+    # Plone >= 4.3
+    from zope.browserresource.directory import DirectoryResourceFactory
+    from zope.browserresource.metaconfigure import allowed_names
+
 import logging
 import os
 

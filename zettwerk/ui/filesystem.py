@@ -56,6 +56,15 @@ def extractZipFile(name):
     z.close()
 
 
+def isCustomTheme(name):
+    """ check if this is a custom file or a default theme """
+    return os.path.exists(
+        os.path.join(DOWNLOAD_HOME,
+                     name,
+                     'jquery-ui-1.9.2.custom.css')
+    )
+
+
 def getDirectoriesOfDownloadHome():
     """ return all directories of the download
     home folder. """

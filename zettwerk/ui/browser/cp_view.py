@@ -32,43 +32,21 @@ class UIControlPanelAdapter(SchemaAdapterBase):
 
 theme = FormFieldsets(IUIToolTheme)
 theme.id = 'theme'
-theme.label = _(u"Theme")
-theme.description = _(u'Select a theme from your downloaded themes.')
+theme.label = _(u"Existing themes")
+theme.description = _(u'Select a theme from the existing themes.')
 
 themeroller = FormFieldsets(IUIToolThemeroller)
 themeroller.id = 'themeroller'
-themeroller.label = _('Themeroller')
-themeroller.description = _(u"theme_description_text", """New themes gets
-downloaded to your server's filesystem. The target directory for storing them
-is given below. If the folder is not available - downloading is disabled. But
-this tool can create the directory. If you want to integrate a custom theme
-from themeroller do not use the themeroller's download link - that will
-download the theme to your local machine. You must use the save button below.
-""")
+themeroller.label = _('Add theme')
 
 
-class ThemerollerDisplayWidget(DisplayWidget):
-    """ Display the themeroller link """
+class ThemeDisplayWidget(DisplayWidget):
+    """ Display the create directory link """
 
     def __call__(self):
         tool = self.context.context
         tool._rebuildThemeHashes()
-        if tool.theme and tool.themeHashes:
-            hash = tool.themeHashes.get(tool.theme, '')
-            themeroller = u"javascript:callThemeroller('%s')" % (hash)
-        else:
-            themeroller = u"javascript:callThemeroller()"
 
-        open_link = '<a href="%s">%s</a>' % (
-            themeroller,
-            translate(
-                _(u"Open jquery.ui themeroller (only firefox)"),
-                domain="zettwerk.ui",
-                context=self.request
-            )
-        )
-        themeroller_input = '<input type="hidden" name="form.themeroller" ' \
-            'value="" />'
         create_help = translate(_(u"Create download directory at: "),
                                 domain="zettwerk.ui",
                                 context=self.request)
@@ -77,7 +55,29 @@ class ThemerollerDisplayWidget(DisplayWidget):
             u'href="javascript:createDLDirectory()">%s</a>' % (create_text)
 
         if isAvailable():
-            return '%s %s' % (open_link, themeroller_input)
+            return _(u"add_theme_description_text", """<p>Sadly,
+            the on the fly themeroller integration does not work anymore. But
+            it is possible, to download and add new themes by hand. There are
+            two kind of themes: Jquery UI Default themes and custom ones.</p>
+            <p>To include all the default themes follow these steps:
+            <ol>
+            <li>Download the zip file from <a href="http://jqueryui.com/resources/download/jquery-ui-themes-1.9.2.zip">http://jqueryui.com/resources/download/jquery-ui-themes-1.9.2.zip</a></li>
+            <li>Extract the contents/subfolders of the themes folder to your download directory.</li>
+            <li>Reload this page and choose a theme.</li>
+            </ol>
+            </p>
+            <p style="margin-top: 2em">To include a custom theme follow these steps:
+            <ol>
+            <li>Go to the themeroller page at <a target="_blank" href="http://jqueryui.com/themeroller/">http://jqueryui.com/themeroller/</a> and create your theme with the themeroller tool.</li>
+            <li>Click Download theme (in the themeroller widget)</li>
+            <li>On the next page, choose the legacy Version (1.9.2 at the moment)</li>
+            <li>Scroll to the bottom of the page set a folder name which gets the theme name.</li>
+            <li>Click download</li>
+            <li>Extract the folder css/$your_theme_name to your download directory.</li>
+            <li>Reload this page and choose a theme.</li>
+            </ol>
+            </p>
+            """)
         else:
             return create_dl
 
@@ -86,29 +86,15 @@ class UIControlPanel(ControlPanelForm):
     """ Build the ControlPanel form. """
 
     form_fields = FormFieldsets(theme, themeroller)
-
-    form_fields['themeroller'].custom_widget = ThemerollerDisplayWidget
+    form_fields['themeroller'].custom_widget = ThemeDisplayWidget
     form_fields['themeroller'].for_display = True
 
     label = _(u"Zettwerk UI Themer")
     description = _('cp_description',
-                    u'With the theme link, you can choose ' \
-                        u'a theme from your existing themes. The ' \
-                        u'themeroller link is to create and change themes.'
+                    u'With the Existing themes link, you can choose ' \
+                        u'a theme from your existing ones. The ' \
+                        u'add theme link describes how to add new themes.'
                     )
 
-    def _on_save(self, data):
-        """ handle themeroller download """
-        name = data.get('download', '')
-        if name:
-            ## why is form.themeroller not available via data?
-            theme_hash = self.request.get('form.themeroller', '')
-            if theme_hash:
-                tool = self.context
-
-                ## also note, that tool.theme gets set via tool directly
-                tool.handleDownload(name, theme_hash)
-
-                ## and reset the values, they are not needed anymore
-                tool.download = ''
-                tool.themeroller = ''
+    # def __call__(self):
+    #

@@ -4,13 +4,9 @@ Changelog
 2.0 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
-
-1.1.1 (2012-09-24)
-------------------
-
-- Nothing changed yet.
+- Plone 4.3 compatibility (for < 4.3 use < 2.0)
+- removed themeroller integration
+- added readme for manual theme integration
 
 
 1.1.0 (2012-09-21)

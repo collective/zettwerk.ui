@@ -16,7 +16,7 @@ import zipfile
 
 from ..filesystem import extractZipFile, storeBinaryFile, \
     createDownloadFolder, getDirectoriesOfDownloadHome, \
-    getThemeHashOfCustomCSS
+    getThemeHashOfCustomCSS, isCustomTheme
 from ..resources import registerResourceDirectory
 from ..filesystem import DOWNLOAD_HOME
 
@@ -68,12 +68,6 @@ class IUIToolThemeroller(Interface):
 
     themeroller = schema.TextLine(
         title=_("Themeroller")
-        )
-
-    download = schema.TextLine(
-        title=_("Download"),
-        required=False,
-        description=_("Name of the theme to download.")
         )
 
 
@@ -138,9 +132,13 @@ class UITool(UniqueObject, SimpleItem):
                     'sunburst/jqueryui.css";'
             else:
                 resource_base = '++resource++zettwerk.ui.themes'
-                result += '@import "%s/%s/jquery-ui-.custom.css";' % (
+                css_filename = 'jquery.ui.theme.css';
+                if isCustomTheme(self.theme):
+                    css_filename = 'jquery-ui-1.9.2.custom.css'
+                result += '@import "%s/%s/%s";' % (
                     resource_base,
-                    self.theme
+                    self.theme,
+                    css_filename
                     )
 
         return result

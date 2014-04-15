@@ -33,7 +33,7 @@ class UIControlPanelAdapter(SchemaAdapterBase):
 theme = FormFieldsets(IUIToolTheme)
 theme.id = 'theme'
 theme.label = _(u"Existing themes")
-theme.description = _(u'Select a theme from the existing themes.')
+theme.description = _(u'Please select a theme from the existing ones.')
 
 themeroller = FormFieldsets(IUIToolThemeroller)
 themeroller.id = 'themeroller'
@@ -62,7 +62,7 @@ class ThemeDisplayWidget(DisplayWidget):
             <p>To include all the default themes follow these steps:
             <ol>
             <li>Download the zip file from <a href="http://jqueryui.com/resources/download/jquery-ui-themes-1.9.2.zip">http://jqueryui.com/resources/download/jquery-ui-themes-1.9.2.zip</a></li>
-            <li>Extract the contents/subfolders of the themes folder to your download directory.</li>
+            <li>Extract the contents/subfolders of the themes folder to your zettwerk.ui download directory.</li>
             <li>Reload this page and choose a theme.</li>
             </ol>
             </p>
@@ -73,7 +73,7 @@ class ThemeDisplayWidget(DisplayWidget):
             <li>On the next page, choose the legacy Version (1.9.2 at the moment)</li>
             <li>Scroll to the bottom of the page set a folder name which gets the theme name.</li>
             <li>Click download</li>
-            <li>Extract the folder css/$your_theme_name to your download directory.</li>
+            <li>Extract the folder css/$your_theme_name to your zettwerk.ui download directory.</li>
             <li>Reload this page and choose a theme.</li>
             </ol>
             </p>
@@ -90,11 +90,7 @@ class UIControlPanel(ControlPanelForm):
     form_fields['themeroller'].for_display = True
 
     label = _(u"Zettwerk UI Themer")
-    description = _('cp_description',
-                    u'With the Existing themes link, you can choose ' \
-                        u'a theme from your existing ones. The ' \
-                        u'add theme link describes how to add new themes.'
-                    )
+    description = ''
 
     # def __call__(self):
     #

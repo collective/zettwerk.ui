@@ -1,14 +1,16 @@
 Introduction
 ============
 
-zettwerk.ui integrates jquery.ui's themeroller into Plone 4.1. Themeroller is a tool to dynamically customize the jquery.ui css classes. For details about jquery.ui theming and themeroller see http://jqueryui.com/themeroller/.
+zettwerk.ui integrates jquery.ui's themeroller based themes into Plone 4.x. Themeroller is a tool to dynamically customize the jquery.ui css classes. For details about jquery.ui theming and themeroller see http://jqueryui.com/themeroller/.
 
-See it in action: http://www.youtube.com/watch?v=p4_jU-5HUYA
+See it in action: xxx
+
+Note: with version 2.0 the dynamic integration of the themeroller widget stops working. But you can include manually downloaded themes. Follow the instructions on the "add theme" page linked on the Zettwerk UI Themer conrol panel. For future versions, it is planned to add a custom widget with live preview again. To see how it worked with versions below 2.0 see http://www.youtube.com/watch?v=p4_jU-5HUYA
 
 Usage
 =====
 
-With this add-on it is very easy to adapt the look and color scheme of your plone site. After installation, there is a new extension product listed in the plone controlpanel which is called "Zettwerk UI Themer". Use the themes tab to create new themes via themeroller or apply one of the example themes from the themeroller gallery. Note that themeroller is only working in firefox, but the existing themes can be used with all browsers.
+With this add-on it is very easy to adapt the look and color scheme of your plone site. After installation, there is a new extension product listed in the plone controlpanel which is called "Zettwerk UI Themer". See the instructions given on that page to choose and add themes.
 
 Feel free to contact us for feedback.
 

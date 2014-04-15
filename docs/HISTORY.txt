@@ -6,8 +6,9 @@ Changelog
 
 - Plone 4.3 compatibility (for < 4.3 use < 2.0)
 - removed themeroller integration
-- added readme for manual theme integration
-
+- added instructions for manual theme integration
+- added z-index for dialog boxes to avoid overlapping with the edit bar
+- updated german translations
 
 1.1.0 (2012-09-21)
 ------------------

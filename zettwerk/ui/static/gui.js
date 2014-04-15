@@ -124,6 +124,8 @@ var showDialogContent = function(data, title) {
     enableForms($content);
 
     var $dialog = $('#dialogContainer').dialog({width: '60%', buttons: buttons});
+    console.log($dialog);
+    $dialog.parent().css('z-index', '1000000');
 };
 
 var enableTabs = function() {

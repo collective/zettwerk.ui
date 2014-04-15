@@ -9,6 +9,7 @@ Changelog
 - added instructions for manual theme integration
 - added z-index for dialog boxes to avoid overlapping with the edit bar
 - updated german translations
+- added theme uninstall via uninstall profile
 
 1.1.0 (2012-09-21)
 ------------------

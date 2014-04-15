@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0 (unreleased)
+2.0 (2014-04-15)
 ----------------
 
 - Plone 4.3 compatibility (for < 4.3 use < 2.0)

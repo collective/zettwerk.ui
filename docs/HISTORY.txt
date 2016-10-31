@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.1 (unreleased)
+------------------
+
+- Updated spanish translations [macagua]
+
 2.0 (2014-04-15)
 ----------------
 

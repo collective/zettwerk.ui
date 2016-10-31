@@ -1,14 +1,17 @@
+# Leonardo Caballero <leonardo.caballero@vnc.biz>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: zettwerk.ui\n"
 "POT-Creation-Date: 2014-04-15 06:43+0000\n"
-"PO-Revision-Date: 2011-06-22 11:26-0400\n"
-"Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
-"Language-Team: Spanish <plone-conosur@lists.plone.org>\n"
+"PO-Revision-Date: 2016-10-31 06:21-0400\n"
+"Last-Translator: Leonardo Caballero <leonardo.caballero@vnc.biz>\n"
+"Language-Team: Spanish Team\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
 "Language-Code: es\n"
 "Language-Name: Spanish\n"
 "Preferred-Encodings: utf-8 latin1\n"
@@ -17,11 +20,11 @@ msgstr ""
 
 #: ./../browser/cp_view.py:40
 msgid "Add theme"
-msgstr ""
+msgstr "Agregar tema"
 
 #: ./../browser/cp_view.py:50
 msgid "Create download directory at: "
-msgstr "Crear descarga en el directorio:"
+msgstr "Crear descarga en el directorio: "
 
 #: ./../tool/tool.py:189
 msgid "Directory created"
@@ -33,11 +36,11 @@ msgstr "Nombre para descarga dado, pero a ningún temas aplicado - por favor, us
 
 #: ./../browser/cp_view.py:35
 msgid "Existing themes"
-msgstr ""
+msgstr "Temas existente"
 
 #: ./../browser/cp_view.py:36
 msgid "Please select a theme from the existing ones."
-msgstr ""
+msgstr "Por favor, seleccionar un tema desde uno existente."
 
 #: ./../tool/tool.py:114
 msgid "Please use no special characters."
@@ -75,4 +78,27 @@ msgstr "Zettwerk UI Themer"
 #: ./../browser/cp_view.py:58
 msgid "add_theme_description_text"
 msgstr ""
-
+"<p>Lamentablemente,\\n            en la integración \"al vuelo\" de ThemeRoller "
+"ya no funciona. Pero\\n            es posible, para descargar y agregar "
+"nuevos temas a mano. Hay\\n            dos tipos de temas: los temas "
+"predeterminados JQuery UI y los temas personalizados.</p>\\n            "
+"<p>Para incluir todos los temas por defecto siga los siguientes pasos:\\n "
+"           <ol>\\n            <li>Descargar el archivo .zip de <a "
+"href=\\\"http://jqueryui.com/resources/download/jquery-ui-"
+"themes-1.9.2.zip\\\">http://jqueryui.com/resources/download/jquery-ui-"
+"themes-1.9.2.zip</a></li>\\n            <li>Extraer el contenido/subcarpetas "
+"de la carpeta themes para el directorio de descarga de zettwerk.ui.</li>\\n "
+"           <li>Actualizar esta página y elija un tema.</li>\\n            "
+"</ol>\\n            </p>\\n            <p style=\\\"margin-top: 2em\\\">Para "
+"incluir un tema personalizado siga estos pasos:\\n            <ol>\\n "
+"           <li>Ir a la página ThemeRoller en <a target=\\\"_blank\\\" href=\\\"ht"
+"tp://jqueryui.com/themeroller/\\\">http://jqueryui.com/themeroller/</a> y "
+"crear un tema personalizado con la herramienta ThemeRoller. </li>\\n "
+"           <li>Haga clic en Descargar el tema (en el widget "
+"ThemeRoller)</li>\\n            <li>En la página siguiente, elija la versión "
+"legado (1.9.2 hasta el momento)</li>\\n            <li>Vaya a la parte "
+"inferior de la página establecer un nombre de carpeta que recibe el nombre "
+"del tema.</li>\\n            <li>Por favor, haga clic en descargar</li>\\n "
+"           <li>Extraer la carpeta css/$su_nombre_tema a su directorio de "
+"descarga zettwerk.ui.</li>\\n            <li>Actualizar esta página y elegir "
+"un tema.</li>\\n            </ol>\\n            </p>\\n            "

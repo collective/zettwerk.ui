@@ -4,6 +4,7 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
+- Updated diazo theme manifest file [macagua]
 - Renamed README file [macagua]
 - Updated spanish translations [macagua]
 

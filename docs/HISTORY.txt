@@ -4,6 +4,7 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
+- Added more strings classifiers items for this package [macagua]
 - Updated diazo theme manifest file [macagua]
 - Renamed README file [macagua]
 - Updated spanish translations [macagua]
